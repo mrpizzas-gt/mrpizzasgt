@@ -2281,51 +2281,48 @@ html[data-theme="dark"] h2.menu-section-title,
 </main>
 
 <footer class="footer">
-  <div class="container footer-brand">
-    <a class="footer-brand__logo" href="/" aria-label="Ir a inicio">
-      <img id="logoFooter" alt="MR Pizza GT" decoding="async" loading="lazy" src="../MR PIZZA LOGO-Ligth.png"/>
-    </a>
-    <p class="footer-brand__tagline">Soluciones gastronomicas para eventos corporativos.</p>
-  </div>
-
-  <div class="container footer-links-inline" aria-label="Enlaces del sitio">
-    <a href="/preguntas/">Preguntas frecuentes</a>
-    <span class="sep">|</span>
-    <a href="/quienes-somos/">Quienes somos</a>
-    <span class="sep">|</span>
-    <a href="/contacto/">Contacto</a>
-    <span class="sep">|</span>
-    <a href="/terminos/">Terminos de uso</a>
-    <span class="sep">|</span>
-    <a href="/privacidad/">Politica de privacidad</a>
-  </div>
-
-  <div class="container">
-    <div class="social" aria-label="Redes sociales">
-      <a aria-label="WhatsApp" class="social__link" href="#" id="waFooter" rel="noopener" target="_blank">
-        <img alt="WhatsApp" decoding="async" loading="lazy" src="../whatsapp.png"/>
-      </a>
-      <a aria-label="Instagram" class="social__link" href="https://www.instagram.com/misterpizzaguate?igsh=MTNjbmR1MGRwY3Vvcg==" rel="noopener" target="_blank">
-        <img alt="Instagram" decoding="async" loading="lazy" src="../instagram.png"/>
-      </a>
-      <a aria-label="TikTok" class="social__link" href="#" rel="noopener" target="_blank">
-        <img alt="TikTok" decoding="async" loading="lazy" src="../tiktok.png"/>
-      </a>
-      <a aria-label="Facebook" class="social__link" href="#" rel="noopener" target="_blank">
-        <img alt="Facebook" decoding="async" loading="lazy" src="../facebook.png"/>
-      </a>
-      <a aria-label="Uber Eats" class="social__link" href="https://www.ubereats.com/store/mr-pizza/v4JKS9wiV9GBl_N_cV1ZNw" rel="noopener" target="_blank">
-        <img alt="Uber Eats" decoding="async" loading="lazy" src="../ubereats.png"/>
-      </a>
-      <a aria-label="PedidosYa" class="social__link" href="https://www.pedidosya.com.gt/restaurantes/ciudad-de-guatemala/mister-pizza-z4-aac4f772-ab3a-4694-9b73-3391a283d481-menu" rel="noopener" target="_blank">
-        <img alt="PedidosYa" decoding="async" loading="lazy" src="../pedidosya.png"/>
-      </a>
-    </div>
-  </div>
-
-  <div class="container footer-bottom">
-    <p>© <span id="year"></span> <strong>MR Pizza GT</strong> by <strong>GaschSoft</strong>. Todos los derechos reservados. Hecho en Guatemala 🇬🇹</p>
-  </div>
+<div class="container footer-brand">
+<a aria-label="Ir a inicio" class="footer-brand__logo" href="../">
+<img alt="MR Pizza GT" decoding="async" id="logoFooter" loading="lazy" src="../MR PIZZA LOGO-Ligth.png"/>
+</a>
+<p class="footer-brand__tagline">Soluciones gastronomicas para eventos corporativos.</p>
+</div>
+<div aria-label="Enlaces del sitio" class="container footer-links-inline">
+<a href="../preguntas/">Preguntas frecuentes</a>
+<span class="sep">|</span>
+<a href="../quienes-somos/">Quienes somos</a>
+<span class="sep">|</span>
+<a href="../contacto/">Contacto</a>
+<span class="sep">|</span>
+<a href="../terminos/">Terminos de uso</a>
+<span class="sep">|</span>
+<a href="../privacidad/">Politica de privacidad</a>
+</div>
+<div class="container">
+<div aria-label="Redes sociales" class="social">
+<a aria-label="WhatsApp" class="social__link" href="#" id="waFooter" rel="noopener" target="_blank">
+<img alt="WhatsApp" decoding="async" loading="lazy" src="../whatsapp.png"/>
+</a>
+<a aria-label="Instagram" class="social__link" href="https://www.instagram.com/misterpizzaguate?igsh=MTNjbmR1MGRwY3Vvcg==" rel="noopener" target="_blank">
+<img alt="Instagram" decoding="async" loading="lazy" src="../instagram.png"/>
+</a>
+<a aria-label="TikTok" class="social__link" href="#" rel="noopener" target="_blank">
+<img alt="TikTok" decoding="async" loading="lazy" src="../tiktok.png"/>
+</a>
+<a aria-label="Facebook" class="social__link" href="#" rel="noopener" target="_blank">
+<img alt="Facebook" decoding="async" loading="lazy" src="../facebook.png"/>
+</a>
+<a aria-label="Uber Eats" class="social__link" href="https://www.ubereats.com/store/mr-pizza/v4JKS9wiV9GBl_N_cV1ZNw" rel="noopener" target="_blank">
+<img alt="Uber Eats" decoding="async" loading="lazy" src="../ubereats.png"/>
+</a>
+<a aria-label="PedidosYa" class="social__link" href="https://www.pedidosya.com.gt/restaurantes/ciudad-de-guatemala/mister-pizza-z4-aac4f772-ab3a-4694-9b73-3391a283d481-menu" rel="noopener" target="_blank">
+<img alt="PedidosYa" decoding="async" loading="lazy" src="../pedidosya.png"/>
+</a>
+</div>
+</div>
+<div class="container footer-bottom">
+<p>© <span id="year"></span> <strong>MR Pizza GT</strong> by <strong>GaschSoft</strong>. Todos los derechos reservados. Hecho en Guatemala 🇬🇹</p>
+</div>
 </footer>
 
 <script>
@@ -2374,13 +2371,13 @@ html[data-theme="dark"] h2.menu-section-title,
   // ===== Header (misma NV visual; acciones redirigen al index principal)
   (function(){
     const brand=document.querySelector("header .brand");
-    if(brand) brand.addEventListener("click", ()=>{ location.href="/"; });
+    if(brand) brand.addEventListener("click", ()=>{ location.href="../"; });
 
     const btnPublic=document.getElementById("btnPublic");
     const btnBiz=document.getElementById("btnBiz");
     // NOTA: /business no existe como ruta. Usamos hash para cambiar de vista en el index.
-    if(btnPublic) btnPublic.addEventListener("click", ()=>{ location.href="/"; });
-    if(btnBiz) btnBiz.addEventListener("click", ()=>{ location.href="/?view=business"; });
+    if(btnPublic) btnPublic.addEventListener("click", ()=>{ location.href="../"; });
+    if(btnBiz) btnBiz.addEventListener("click", ()=>{ location.href="../?view=business"; });
   })();
 
   // ===== FAQ accordion
