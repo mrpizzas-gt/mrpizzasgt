@@ -2282,22 +2282,22 @@ html[data-theme="dark"] h2.menu-section-title,
 
 <footer class="footer">
   <div class="container footer-brand">
-    <a class="footer-brand__logo" href="/mrpizzasgt/" aria-label="Ir a inicio">
+    <a class="footer-brand__logo" href="/" aria-label="Ir a inicio">
       <img id="logoFooter" alt="MR Pizza GT" decoding="async" loading="lazy" src="../MR PIZZA LOGO-Ligth.png"/>
     </a>
     <p class="footer-brand__tagline">Soluciones gastronomicas para eventos corporativos.</p>
   </div>
 
   <div class="container footer-links-inline" aria-label="Enlaces del sitio">
-    <a href="/mrpizzasgt/preguntas/">Preguntas frecuentes</a>
+    <a href="/preguntas/">Preguntas frecuentes</a>
     <span class="sep">|</span>
-    <a href="/mrpizzasgt/quienes-somos/">Quienes somos</a>
+    <a href="/quienes-somos/">Quienes somos</a>
     <span class="sep">|</span>
-    <a href="/mrpizzasgt/contacto/">Contacto</a>
+    <a href="/contacto/">Contacto</a>
     <span class="sep">|</span>
-    <a href="/mrpizzasgt/terminos/">Terminos de uso</a>
+    <a href="/terminos/">Terminos de uso</a>
     <span class="sep">|</span>
-    <a href="/mrpizzasgt/privacidad/">Politica de privacidad</a>
+    <a href="/privacidad/">Politica de privacidad</a>
   </div>
 
   <div class="container">
@@ -2374,13 +2374,13 @@ html[data-theme="dark"] h2.menu-section-title,
   // ===== Header (misma NV visual; acciones redirigen al index principal)
   (function(){
     const brand=document.querySelector("header .brand");
-    if(brand) brand.addEventListener("click", ()=>{ location.href="/mrpizzasgt/"; });
+    if(brand) brand.addEventListener("click", ()=>{ location.href="/"; });
 
     const btnPublic=document.getElementById("btnPublic");
     const btnBiz=document.getElementById("btnBiz");
     // NOTA: /business no existe como ruta. Usamos hash para cambiar de vista en el index.
-    if(btnPublic) btnPublic.addEventListener("click", ()=>{ location.href="/mrpizzasgt/"; });
-    if(btnBiz) btnBiz.addEventListener("click", ()=>{ location.href="/mrpizzasgt/?view=business"; });
+    if(btnPublic) btnPublic.addEventListener("click", ()=>{ location.href="/"; });
+    if(btnBiz) btnBiz.addEventListener("click", ()=>{ location.href="/?view=business"; });
   })();
 
   // ===== FAQ accordion
