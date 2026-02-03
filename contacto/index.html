@@ -2192,8 +2192,178 @@ html[data-theme="dark"] h2.menu-section-title,
   gap:10px;
 }
 </style>
+
+<style id="appLoadingStyles">
+  /* ===========================
+     Loader GLOBAL (App Loading)
+     Reutilizable: Empresas, Contacto, futuro checkout
+     v61_9: sobre animado + cierre limpio
+     =========================== */
+  body.is-app-loading{ overflow:hidden; }
+
+  .app-loading{
+    pointer-events: all;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: transparent; /* sin atenuar */
+  }
+  .app-loading.is-hidden{ display:none; }
+
+  .app-loading svg{
+    display:block;
+    width: min(260px, 70vw);
+    height: auto;
+    margin: 0 auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,.25));
+    animation: envelope-enter 1.0s ease-out both, envelope-pulse 1.6s 1.2s ease-in-out infinite;
+  }
+
+  .app-loading .st0{ fill:#b3b3b3 }
+  .app-loading .st1{ fill:#e6e6e6 }
+  .app-loading .st2{ fill:#ccc }
+
+  /* Colores aproximados */
+  .app-loading{ --env:#d30133; --env-light:#ff4d6d; --env-mid:#d30133; --env-dark:#9d0026; }
+
+  #letter-top{ animation: letter-top 1.0s ease-out both; transform-origin: 50% 32%; }
+  #letter-top-2{ animation: letter-top-2 1.0s ease-out both; transform-origin: 50% 32%; }
+  #letter-bottom{ animation: letter-bottom 1.0s ease-out 0.65s both; }
+  #envelope-back{ animation: envelope-back .6s ease-out 0.75s both; }
+
+  #envelope-top{ animation: envelope-top 0.9s ease-in-out 0.95s both; transform-origin: 50% 30%; }
+  #envelope-top-shadow{ animation: envelope-top-shadow 0.9s ease-in-out 0.95s both; transform-origin: 50% 30%; }
+  #envelope-right{ animation: envelope-right 0.9s ease-in-out 0.95s both; transform-origin: 69.5% 50%; }
+  #envelope-left{ animation: envelope-left 0.9s ease-in-out 0.95s both; transform-origin: 30.5% 50%; }
+  #envelope-bottom{ animation: envelope-bottom 0.9s ease-in-out 0.95s both; transform-origin: 50% 70%; }
+
+  @keyframes letter-top{
+    0%{ transform: scaleY(-1) skewX(0deg); fill:#e6e6e6; }
+    50%{ transform: scaleY(0) skewX(-10deg); fill:#cfcfcf; }
+    60%{ fill:#f0f0f0; }
+    100%{ transform: scaleY(1) skewX(0deg); fill:#e6e6e6; }
+  }
+  @keyframes letter-top-2{
+    0%{ transform: scaleY(-1) skewX(0deg); fill:#e6e6e6; }
+    50%{ transform: scaleY(0) skewX(10deg); fill:#cfcfcf; }
+    60%{ fill:#f0f0f0; }
+    100%{ transform: scaleY(1) skewX(0deg); fill:#e6e6e6; }
+  }
+  @keyframes letter-bottom{
+    from{ fill:#e6e6e6; }
+    to{ fill:#d9d9d9; }
+  }
+  @keyframes envelope-back{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  @keyframes envelope-enter{
+    0%{ opacity:0; transform: scale(.75); }
+    60%{ opacity:1; transform: scale(1.02); }
+    100%{ opacity:1; transform: scale(1); }
+  }
+  @keyframes envelope-pulse{
+    0%, 25%{ transform: scale(1); }
+    50%{ transform: scale(.97); }
+    100%{ transform: scale(1); }
+  }
+  @keyframes envelope-top{
+    0%{ transform: scaleY(0); fill: var(--env-light); }
+    50%{ transform: scaleY(-1); fill: var(--env-mid); }
+    60%{ fill: var(--env-dark); }
+    100%{ transform: scaleY(1); fill: var(--env-mid); }
+  }
+  @keyframes envelope-top-shadow{
+    0%{ opacity:0; }
+    65%{ opacity:0; transform: scaleY(1.4); }
+    100%{ opacity:.25; transform: scaleY(1); }
+  }
+  @keyframes envelope-right{
+    0%{ transform: scaleX(0); fill:#e0e0e0; }
+    50%{ transform: scaleX(-1); fill:#ccc; }
+    60%{ fill:#a8a8a8; }
+    100%{ transform: scaleX(1); fill:#ccc; }
+  }
+  @keyframes envelope-left{
+    0%{ transform: scaleX(0); fill:#e0e0e0; }
+    50%{ transform: scaleX(-1); fill:#ccc; }
+    60%{ fill:#a8a8a8; }
+    100%{ transform: scaleX(1); fill:#ccc; }
+  }
+  @keyframes envelope-bottom{
+    0%{ transform: scaleY(0); fill:#8f8f8f; }
+    50%{ transform: scaleY(-1); fill:#b3b3b3; }
+    60%{ fill:#d6d6d6; }
+    100%{ transform: scaleY(1); fill:#b3b3b3; }
+  }
+
+  /* asegurar que el sobre se complete antes de ocultar */
+  #appLoading.is-finishing svg{
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .app-loading svg{ animation: none !important; }
+  }
+
+  /* v61_8: acelerar animación del sobre para que siempre se vea completa */
+  .app-loading svg{
+    animation: envelope-enter .6s ease-out both, envelope-pulse 1.2s .8s ease-in-out infinite !important;
+  }
+  #letter-top{ animation: letter-top .6s ease-out both !important; }
+  #letter-top-2{ animation: letter-top-2 .6s ease-out both !important; }
+  #letter-bottom{ animation: letter-bottom .6s ease-out .35s both !important; }
+  #envelope-back{ animation: envelope-back .35s ease-out .4s both !important; }
+
+  #envelope-top{ animation: envelope-top .55s ease-in-out .55s both !important; }
+  #envelope-top-shadow{ animation: envelope-top-shadow .55s ease-in-out .55s both !important; }
+  #envelope-right{ animation: envelope-right .55s ease-in-out .55s both !important; }
+  #envelope-left{ animation: envelope-left .55s ease-in-out .55s both !important; }
+  #envelope-bottom{ animation: envelope-bottom .55s ease-in-out .55s both !important; }
+
+  /* Al cerrar: congelar en estado final (sin “corte” a medias) */
+  #appLoading.is-finishing svg,
+  #appLoading.is-finishing #letter-top,
+  #appLoading.is-finishing #letter-top-2,
+  #appLoading.is-finishing #letter-bottom,
+  #appLoading.is-finishing #envelope-back,
+  #appLoading.is-finishing #envelope-top,
+  #appLoading.is-finishing #envelope-top-shadow,
+  #appLoading.is-finishing #envelope-right,
+  #appLoading.is-finishing #envelope-left,
+  #appLoading.is-finishing #envelope-bottom{
+    animation: none !important;
+  }
+
+</style>
+
 </head>
 <body>
+
+  <!-- Loader GLOBAL (reutilizable en toda la app) -->
+  <div id="appLoading" class="app-loading is-hidden" role="status" aria-live="polite" aria-hidden="true">
+    <svg id="envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" aria-hidden="true">
+      <style>
+        .st0{fill:#b3b3b3}.st1{fill:#e6e6e6}.st2{fill:#ccc}
+      </style>
+      <path class="st0" d="M440 350H200c-2.8 0-5-2.2-5-5V155c0-2.8 2.2-5 5-5h240c2.8 0 5 2.2 5 5v190c0 2.8-2.2 5-5 5z" id="envelope-back"/>
+      <path id="letter-bottom" class="st1" d="M198 156h243v189H198z"/>
+      <path id="letter-top" class="st1" d="M198 156h243v189H198z"/>
+      <path id="letter-top-2" class="st1" d="M198 156h243v189H198z"/>
+      <path class="st2" d="M332.2 244.7c2-11.9 109-93.7 109-93.7 2.1 0 3.8 1.5 3.8 3.3v191.9c0 1.8-1.7 3.3-3.8 3.3 0 0-108.2-79.4-109-94.2-.1-2.1-.3-8.6 0-10.6z" id="envelope-right"/>
+      <path class="st2" d="M307.8 255.8c-2 11.9-109 93.7-109 93.7-2.1 0-3.8-1.5-3.8-3.3V154.3c0-1.8 1.7-3.3 3.8-3.3 0 0 108.2 79.4 109 94.2.1 2.1.3 8.6 0 10.6z" id="envelope-left"/>
+      <path class="st0" d="M327 249.3c15 1.7 118 97.3 118 97.3 0 1.9-1.9 3.4-4.2 3.4H199.2c-2.3 0-4.2-1.5-4.2-3.4 0 0 100-96.6 118.6-97.3 2.7-.2 10.9-.3 13.4 0z" id="envelope-bottom"/>
+      <path d="M319.4 295c-3.1 0-7.6-.6-11.1-4.1C274 257 195 154.3 195 154.3c0-2.4 1.9-4.3 4.2-4.3h241.6c2.3 0 4.2 1.9 4.2 4.3 0 0-82 103.6-115.5 136.6-3.1 3-7.1 4.1-10.1 4.1z" fill="gray" id="envelope-top-shadow"/>
+      <path class="st1" d="M319.4 291c-3.1 0-7.6-.5-11.1-4C274 254 195 154.2 195 154.2c0-2.3 1.9-4.2 4.2-4.2h241.6c2.3 0 4.2 1.9 4.2 4.2 0 0-82 100.8-115.5 132.8-3.1 2.9-7.1 4-10.1 4z" id="envelope-top"/>
+    </svg>
+  </div>
+
 <header>
 <div class="container row">
 <div class="brand">
@@ -2402,6 +2572,55 @@ html[data-theme="dark"] h2.menu-section-title,
   })();
 </script>
 <script>
+
+// ===========================
+// Loader GLOBAL (reutilizable)
+// ===========================
+function showAppLoading(){
+  const el = document.getElementById('appLoading');
+  if(!el) return;
+  window.__appLoadingShownAt = Date.now();
+  window.__appLoadingToken = (window.__appLoadingToken || 0) + 1;
+  const myToken = window.__appLoadingToken;
+
+  document.body.classList.add('is-app-loading');
+  el.classList.remove('is-hidden');
+  el.classList.remove('is-finishing');
+  el.setAttribute('aria-hidden','false');
+
+  window.__appLoadingActiveToken = myToken;
+}
+
+function hideAppLoading(){
+  const el = document.getElementById('appLoading');
+  if(!el) return;
+
+  const MIN_MS = 1250;
+  const FINISH_MS = 220;
+
+  const shownAt = window.__appLoadingShownAt || Date.now();
+  const elapsed = Date.now() - shownAt;
+  const wait = Math.max(0, MIN_MS - elapsed);
+
+  const myToken = window.__appLoadingToken || 0;
+
+  window.setTimeout(()=>{
+    if((window.__appLoadingToken || 0) !== myToken) return;
+
+    el.classList.add('is-finishing');
+
+    window.setTimeout(()=>{
+      if((window.__appLoadingToken || 0) !== myToken) return;
+
+      el.classList.add('is-hidden');
+      el.classList.remove('is-finishing');
+      el.setAttribute('aria-hidden','true');
+      document.body.classList.remove('is-app-loading');
+    }, FINISH_MS);
+  }, wait);
+}
+
+
 // Contacto (subpagina) — envio real via Formspree + toast (sin redireccion)
 (function(){
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykpoqra";
@@ -2438,17 +2657,7 @@ html[data-theme="dark"] h2.menu-section-title,
 
     const submitBtn = form.querySelector('button[type="submit"]');
 
-    // Bloqueador transparente dentro de la tarjeta (evita clicks mientras envía)
-    const card = form.closest(".card");
-    let blocker = document.getElementById("contactSendBlocker");
-    if(!blocker && card){
-      blocker = document.createElement("div");
-      blocker.id = "contactSendBlocker";
-      blocker.className = "contact-send-blocker";
-      card.style.position = "relative";
-      card.appendChild(blocker);
-    }
-
+    // Loader global se encarga de bloquear interacción durante el envío
     // Limpiar errores al escribir
     [nameEl, emailEl, msgEl].forEach((el)=>{
       if(!el) return;
@@ -2495,7 +2704,7 @@ html[data-theme="dark"] h2.menu-section-title,
 
       // UI: deshabilitar + gris + texto (emulación de Empresas)
       const prevText = submitBtn ? (submitBtn.textContent || "") : "";
-      try{ if(blocker) blocker.classList.add("show"); }catch(_e){}
+      try{ showAppLoading(); }catch(_e){}
       try{
         if(submitBtn){
           submitBtn.disabled = true;
@@ -2528,7 +2737,7 @@ html[data-theme="dark"] h2.menu-section-title,
       }catch(err){
         showToast("Error de red. Revisa tu conexión.");
       }finally{
-        try{ if(blocker) blocker.classList.remove("show"); }catch(_e){}
+        try{ hideAppLoading(); }catch(_e){}
         try{
           if(submitBtn){
             submitBtn.disabled = false;
