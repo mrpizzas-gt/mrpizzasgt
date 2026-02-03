@@ -2154,7 +2154,8 @@ html[data-theme="dark"] h2.menu-section-title,
       background: var(--surface, #fff);
       color: var(--ink, #111);
       outline: none;
-    }
+      resize: none;
+}
     .contact-card input:focus,
     .contact-card textarea:focus{
       border-color: rgba(0,0,0,.35);
@@ -2223,16 +2224,23 @@ html[data-theme="dark"] h2.menu-section-title,
 <div class="field">
 <label for="cName">Tu nombre</label>
 <input id="cName" name="name" placeholder="Tu nombre" required="" type="text"/>
+<div aria-live="polite" class="field-error" id="cErrName"></div>
 </div>
 <div class="field">
 <label for="cEmail">Tu correo electrónico</label>
 <input id="cEmail" name="email" placeholder="Tu correo electrónico" required="" type="email"/>
+<div aria-live="polite" class="field-error" id="cErrEmail"></div>
 </div>
 <div class="field">
 <label for="cMsg">Tu mensaje</label>
 <textarea id="cMsg" name="message" placeholder="Cuéntanos qué necesitas (pedido, cotización, dudas…)" required="" rows="6"></textarea>
+<div aria-live="polite" class="field-error" id="cErrMsg"></div>
 </div>
-<div class="actions">
+<div class="actions"><div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+  <label>Si eres humano, deja esto vacio</label>
+  <input id="hpField" type="text" name="website" tabindex="-1" autocomplete="off">
+</div>
+
 <button class="btn-primary" type="submit">Enviar correo</button>
 </div>
 </form>
@@ -2394,45 +2402,142 @@ html[data-theme="dark"] h2.menu-section-title,
   })();
 </script>
 <script>
-  // Contacto (subpagina) — usa la misma toast del sitio
-  (function(){
-    function onReady(fn){
-      if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
-      else fn();
-    }
-    onReady(function(){
-      const form = document.getElementById("contactForm");
-      const waBtn = document.getElementById("waBtn");
+// Contacto (subpagina) — envio real via Formspree + toast (sin redireccion)
+(function(){
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykpoqra";
 
-      if(form){
-        form.addEventListener("submit", function(e){
-          e.preventDefault();
-          // Validacion simple usando el navegador
-          const name = document.getElementById("cName");
-          const email = document.getElementById("cEmail");
-          const msg = document.getElementById("cMsg");
-          if(!name?.value || !email?.value || !msg?.value){
-            if(typeof showToast === "function") showToast("Completa todos los campos");
-            return;
-          }
-          if(typeof showToast === "function") showToast("Correo dummy enviado");
-          form.reset();
-        });
+  function onReady(fn){
+    if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+
+  function emailIsValid(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value||"").trim());
+  }
+
+  function setErr(el, msg){
+    if(!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("is-show", !!msg);
+  }
+
+  onReady(function(){
+    const form = document.getElementById("contactForm");
+    if(!form) return;
+
+    const nameEl  = document.getElementById("cName");
+    const emailEl = document.getElementById("cEmail");
+    const msgEl   = document.getElementById("cMsg");
+
+    const errName  = document.getElementById("cErrName");
+    const errEmail = document.getElementById("cErrEmail");
+    const errMsg   = document.getElementById("cErrMsg");
+
+    // Honeypot anti-spam (opcional). Si existe y se llena, asumimos bot.
+    const honeyEl = document.getElementById("hpField");
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    // Bloqueador transparente dentro de la tarjeta (evita clicks mientras envía)
+    const card = form.closest(".card");
+    let blocker = document.getElementById("contactSendBlocker");
+    if(!blocker && card){
+      blocker = document.createElement("div");
+      blocker.id = "contactSendBlocker";
+      blocker.className = "contact-send-blocker";
+      card.style.position = "relative";
+      card.appendChild(blocker);
+    }
+
+    // Limpiar errores al escribir
+    [nameEl, emailEl, msgEl].forEach((el)=>{
+      if(!el) return;
+      el.addEventListener("input", ()=>{
+        setErr(errName, "");
+        setErr(errEmail, "");
+        setErr(errMsg, "");
+      });
+    });
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      const name  = (nameEl?.value || "").trim();
+      const email = (emailEl?.value || "").trim();
+      const msg   = (msgEl?.value || "").trim();
+
+      // reset errors
+      setErr(errName, "");
+      setErr(errEmail, "");
+      setErr(errMsg, "");
+
+      if(honeyEl && honeyEl.value){
+        // Micro-UX: no damos pistas a bots
+        showToast(`Hemos recibido tu email desde ${email || "tu correo"}. Te responderemos en breve.`);
+        form.reset();
+        return;
       }
 
-      if(waBtn){
-        waBtn.addEventListener("click", function(e){
-          e.preventDefault();
-          try{
-            const message = (typeof MSG === "object" && MSG.mixed) ? MSG.mixed : "Hola! Vengo del canal web: Mr Pizza GT by GaschSoft. Quiero informacion, por favor.";
-            window.open(waLink(message), "_blank", "noopener");
-          }catch(err){
-            window.open("https://wa.me/50239151615", "_blank", "noopener");
-          }
+      let ok = true;
+      if(!name){ setErr(errName, "Rellena este campo."); ok = false; }
+      if(!email){ setErr(errEmail, "Rellena este campo."); ok = false; }
+      if(!msg){ setErr(errMsg, "Rellena este campo."); ok = false; }
+      if(!ok) return;
+
+      if(emailEl && typeof emailEl.checkValidity === "function" && !emailEl.checkValidity()){
+        setErr(errEmail, "Ingresa un correo válido.");
+        return;
+      }
+      if(!emailIsValid(email)){
+        setErr(errEmail, "Ingresa un correo válido.");
+        return;
+      }
+
+      // UI: deshabilitar + gris + texto (emulación de Empresas)
+      const prevText = submitBtn ? (submitBtn.textContent || "") : "";
+      try{ if(blocker) blocker.classList.add("show"); }catch(_e){}
+      try{
+        if(submitBtn){
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Enviando correo…";
+        }
+      }catch(_e){}
+
+      try{
+        const fd = new FormData();
+        fd.append("name", name);
+        fd.append("email", email);
+        fd.append("message", msg);
+
+        // ✅ Solo columnas necesarias
+        fd.append("source", "¿Quieres contactarnos?");
+        fd.append("_subject", `Contacto — ${name}`);
+
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          body: fd,
+          headers: { "Accept": "application/json" }
         });
+
+        if(res.ok){
+          showToast(`¡Listo! Recibimos tu mensaje desde ${email}. Te responderemos en breve.`);
+          form.reset();
+        }else{
+          showToast("No se pudo enviar. Intenta de nuevo.");
+        }
+      }catch(err){
+        showToast("Error de red. Revisa tu conexión.");
+      }finally{
+        try{ if(blocker) blocker.classList.remove("show"); }catch(_e){}
+        try{
+          if(submitBtn){
+            submitBtn.disabled = false;
+            submitBtn.textContent = prevText || "Enviar correo";
+          }
+        }catch(_e){}
       }
     });
-  })();
-</script>
+  });
+})();</script>
 </body>
 </html>

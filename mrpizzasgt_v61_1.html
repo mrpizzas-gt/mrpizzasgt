@@ -1992,21 +1992,66 @@ html[data-theme="dark"] h2.menu-section-title,
   color: #ffffff !important;
 }
 
+
+  /* FOOTER (v59_14) - institucional */
+  .footer-brand{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    gap: 10px;
+    padding: 30px 0 10px;
+    text-align:center;
+  }
+  .footer-brand__logo img{
+    height: 46px;
+    width: auto;
+    display:block;
+    filter: drop-shadow(0 10px 18px rgba(2,6,23,.10));
+  }
+  .footer-brand__tagline{
+    margin:0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .footer-links-inline{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items:center;
+    gap: 10px;
+    padding: 6px 0 10px;
+    text-align:center;
+    font-size: 13px;
+  }
+  .footer-links-inline a{
+    color: var(--ink);
+    text-decoration:none;
+    font-weight: 850;
+  }
+  .footer-links-inline a:hover{ text-decoration: underline; }
+  .footer-links-inline .sep{ opacity:.35; }
+
 </style>
-<link as="image" href="Flayer 1.webp" rel="preload"/>
+<link as="image" href="Fotosempresa/Flayer 1.webp" rel="preload"/>
 <!-- Open Graph / WhatsApp -->
 <meta content="website" property="og:type"/>
 <meta content="Mr Pizza GT | Pizzas &amp; Crepas para Empresas y Pedidos Nocturnos" property="og:title"/>
 <meta content="Pizzas y crepas para pedidos nocturnos y convivios empresariales. Confirmamos rápido y entregamos sin complicarte." property="og:description"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/" property="og:url"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
+<meta property="og:url" content="https://mrpizzasgt.com/">
+<meta property="og:image" content="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta content="https://mrpizzasgt/" property="https://mrpizzasgt.com/"/>
+<meta content="https://mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png"/>
+<meta content="1200" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png:width"/>
+<meta content="630" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png:height"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Mr Pizza GT | Pizzas &amp; Crepas" name="twitter:title"/>
 <meta content="Pedidos nocturnos y eventos empresariales sin complicarte." name="twitter:description"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" name="twitter:image"/>
+<meta content="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png" name="twitter:image"/>
 <!-- Favicons / PWA -->
 <meta content="#b81f24" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -2040,10 +2085,10 @@ html[data-theme="dark"] h2.menu-section-title,
 <button aria-label="Anterior" class="carousel__btn carousel__btn--prev" data-prev="" type="button">‹</button>
 <div class="carousel__viewport">
 <div class="carousel__track" data-track="">
-<div class="carousel__slide"><img alt="Flayer 1" decoding="sync" fetchpriority="high" src="Flayer 1.webp"/></div>
-<div class="carousel__slide"><img alt="Flayer 2" decoding="async" loading="lazy" src="Flayer 2.webp"/></div>
-<div class="carousel__slide"><img alt="Flayer 3" decoding="async" loading="lazy" src="Flayer 3.webp"/></div>
-<div class="carousel__slide"><img alt="Flayer 4" decoding="async" loading="lazy" src="Flayer 4.webp"/></div>
+<div class="carousel__slide"><img alt="Flayer 1" decoding="sync" fetchpriority="high" src="Fotosempresa/Flayer 1.webp"/></div>
+<div class="carousel__slide"><img alt="Flayer 2" decoding="async" loading="lazy" src="Fotosempresa/Flayer 2.webp"/></div>
+<div class="carousel__slide"><img alt="Flayer 3" decoding="async" loading="lazy" src="Fotosempresa/Flayer 3.webp"/></div>
+<div class="carousel__slide"><img alt="Flayer 4" decoding="async" loading="lazy" src="Fotosempresa/Flayer 4.webp"/></div>
 </div>
 </div>
 <button aria-label="Siguiente" class="carousel__btn carousel__btn--next" data-next="" type="button">›</button>
@@ -2273,7 +2318,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <!-- ===================== SECCIÓN CONDICIONAL: PÚBLICO ===================== -->
 <section class="section" id="pubSection">
 <div class="container">
-<h2>Público: pedí en la noche sin complicarte</h2>
+<h2>Pedí en la noche sin complicarte</h2>
 <p>
         Cuando el antojo pega, lo resolvemos rápido. Vos escribís, confirmamos disponibilidad y listo.
       </p>
@@ -2283,8 +2328,8 @@ html[data-theme="dark"] h2.menu-section-title,
 <span class="menu-toggle__left">
 <span class="menu-toggle__icon">🍕</span>
 <span>
-<strong class="menu-title">Nuestras pizzas</strong>
-<span class="menu-toggle__meta">Q85 • 8 porciones • 8 sabores</span>
+<strong class="menu-title">Nuestro Menú</strong>
+<span class="menu-toggle__meta">Pizzas Q85 • 8 porciones • 8 sabores</span>
 </span>
 </span>
 <span aria-hidden="true" class="menu-toggle__chev">▾</span>
@@ -2292,7 +2337,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <div class="menu-panel" id="menuPanel">
 <div class="menu-grid">
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza Hawaiana" decoding="async" loading="lazy" src="Hawaiana.webp"/></div>
+<div class="menu-img"><img alt="Pizza Hawaiana" decoding="async" loading="lazy" src="Menu/Hawaiana.webp"/></div>
 <div class="menu-body">
 <h3>Hawaiana</h3>
 <p>Base de salsa de tomate, mozzarella, jamón y piña. La clásica dulce-salada.</p>
@@ -2305,7 +2350,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza Peperoni" decoding="async" loading="lazy" src="Peperoni.webp"/></div>
+<div class="menu-img"><img alt="Pizza Peperoni" decoding="async" loading="lazy" src="Menu/Peperoni.webp"/></div>
 <div class="menu-body">
 <h3>Peperoni</h3>
 <p>Salsa de tomate, mozzarella y pepperoni doradito. Simple y poderosa.</p>
@@ -2318,7 +2363,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza Margarita Pesto" decoding="async" loading="lazy" src="Margarita Pesto.webp"/></div>
+<div class="menu-img"><img alt="Pizza Margarita Pesto" decoding="async" loading="lazy" src="Menu/Margarita Pesto.webp"/></div>
 <div class="menu-body">
 <h3>Margarita Pesto</h3>
 <p>Salsa de tomate de la casa, con masa de la casa, mozzarella, tomate cherry y un pesto espectacular.</p>
@@ -2331,7 +2376,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza Chapina" decoding="async" loading="lazy" src="Chapina.webp"/></div>
+<div class="menu-img"><img alt="Pizza Chapina" decoding="async" loading="lazy" src="Menu/Chapina.webp"/></div>
 <div class="menu-body">
 <h3>Chapina</h3>
 <p>Pizza con masa de la casa, salsa de chile guaque con chorizo y longaniza.</p>
@@ -2344,7 +2389,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza de Carnes" decoding="async" loading="lazy" src="Carnes.png"/></div>
+<div class="menu-img"><img alt="Pizza de Carnes" decoding="async" loading="lazy" src="Menu/Carnes.webp"/></div>
 <div class="menu-body">
 <h3>Carnes</h3>
 <p>Salsa de tomate de la casa, masa de la casa, queso mozzarella, jamón, tocino y pepperoni.</p>
@@ -2357,7 +2402,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza Tejana" decoding="async" loading="lazy" src="Tejana.webp"/></div>
+<div class="menu-img"><img alt="Pizza Tejana" decoding="async" loading="lazy" src="Menu/Tejana.webp"/></div>
 <div class="menu-body">
 <h3>Tejana</h3>
 <p>Salsa de tomate, mozzarella, carne sazonada y un toque de jalapeño (nivel “rico”, no complicado).</p>
@@ -2370,7 +2415,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza de Tocino" decoding="async" loading="lazy" src="Tocino.webp"/></div>
+<div class="menu-img"><img alt="Pizza de Tocino" decoding="async" loading="lazy" src="Menu/Tocino.webp"/></div>
 <div class="menu-body">
 <h3>Tocino</h3>
 <p>Salsa de tomate, mozzarella y tocino crujiente. Favorita para compartir.</p>
@@ -2383,7 +2428,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Pizza de Jamón" decoding="async" loading="lazy" src="Jamon.webp"/></div>
+<div class="menu-img"><img alt="Pizza de Jamón" decoding="async" loading="lazy" src="Menu/Jamon.webp"/></div>
 <div class="menu-body">
 <h3>Jamón</h3>
 <p>Salsa de tomate de la casa, con queso mozzarella y jamón.</p>
@@ -2411,7 +2456,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <div class="menu-panel" hidden="" id="menuExtrasPanel">
 <div class="menu-grid">
 <article class="menu-item">
-<div class="menu-img"><img alt="Nachos" decoding="async" loading="lazy" src="Nachos.webp"/></div>
+<div class="menu-img"><img alt="Nachos" decoding="async" loading="lazy" src="Menu/Nachos.webp"/></div>
 <div class="menu-body">
 <h3>Nachos con queso</h3>
 <p>Nachos crujientes con queso derretido y toppings (según disponibilidad).</p>
@@ -2424,7 +2469,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Alitas" decoding="async" loading="lazy" src="Alitas.webp"/></div>
+<div class="menu-img"><img alt="Alitas" decoding="async" loading="lazy" src="Menu/Alitas.webp"/></div>
 <div class="menu-body">
 <h3>Alitas (porción)</h3>
 <p>Alitas doraditas con salsa a elegir (consulta opciones disponibles).</p>
@@ -2437,7 +2482,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Crepa de fresas con Nutella" decoding="async" loading="lazy" src="Crepa-Fresas-Nutela.webp"/></div>
+<div class="menu-img"><img alt="Crepa de fresas con Nutella" decoding="async" loading="lazy" src="Menu/Crepa-Fresas-Nutela.webp"/></div>
 <div class="menu-body">
 <h3>Crepa de fresas con Nutella</h3>
 <p>Crepa recién hecha con fresas frescas y Nutella.</p>
@@ -2450,7 +2495,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Crepa de banano con Nutella" decoding="async" loading="lazy" src="Crepa-Banano-Nutela.webp"/></div>
+<div class="menu-img"><img alt="Crepa de banano con Nutella" decoding="async" loading="lazy" src="Menu/Crepa-Banano-Nutela.webp"/></div>
 <div class="menu-body">
 <h3>Crepa de banano con Nutella</h3>
 <p>Crepa recién hecha con banano y Nutella. Dulce y contundente.</p>
@@ -2463,7 +2508,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Crepa de fresa y banano" decoding="async" loading="lazy" src="Crepa-Fresa-Banano.webp"/></div>
+<div class="menu-img"><img alt="Crepa de fresa y banano" decoding="async" loading="lazy" src="Menu/Crepa-Fresa-Banano.webp"/></div>
 <div class="menu-body">
 <h3>Crepa de fresa y banano</h3>
 <p>Crepa con fresa y banano: el combo que nunca falla.</p>
@@ -2476,7 +2521,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Fresas con crema en vaso" decoding="async" loading="lazy" src="Fresas-Con-Crema-Vaso.webp"/></div>
+<div class="menu-img"><img alt="Fresas con crema en vaso" decoding="async" loading="lazy" src="Menu/Fresas-Con-Crema-Vaso.webp"/></div>
 <div class="menu-body">
 <h3>Vaso de fresas con crema</h3>
 <p>Fresas frescas con crema dulce servidas en vaso.</p>
@@ -2489,7 +2534,7 @@ html[data-theme="dark"] h2.menu-section-title,
 </div>
 </article>
 <article class="menu-item">
-<div class="menu-img"><img alt="Fresas con chocolate en vaso" decoding="async" loading="lazy" src="Fresas-Con-Chocolate-Vaso.webp"/></div>
+<div class="menu-img"><img alt="Fresas con chocolate en vaso" decoding="async" loading="lazy" src="Menu/Fresas-Con-Chocolate-Vaso.webp"/></div>
 <div class="menu-body">
 <h3>Vaso de fresas con chocolate</h3>
 <p>Fresas frescas bañadas con chocolate, servidas en vaso.</p>
@@ -2588,44 +2633,51 @@ html[data-theme="dark"] h2.menu-section-title,
 </a><a aria-label="Cotizá tu evento" class="cotiza-fab" href="#" id="cotizaFab" style="display:none;" title="Cotizá">Cotizá</a>
 </main>
 <footer class="footer">
-<div class="container footer-top">
-<nav class="footer-col">
-<h4>Explora</h4>
-<ul>
-<li><a href="#servicios">Servicios</a></li>
-<li><a href="#confianza">Reseñas</a></li>
-</ul>
-</nav>
-<nav class="footer-col">
-<h4>Contacto</h4>
-<ul>
-<li><a href="#" id="waFooter" rel="noopener" target="_blank">WhatsApp</a></li>
-<li><a href="https://www.pedidosya.com.gt/restaurantes/ciudad-de-guatemala/mister-pizza-z4-aac4f772-ab3a-4694-9b73-3391a283d481-menu" rel="noopener" target="_blank">PedidosYa</a></li>
-</ul>
-</nav>
-</div>
-<div class="container">
-<div class="social">
-<a aria-label="Instagram" class="social__link" href="https://www.instagram.com/misterpizzaguate?igsh=MTNjbmR1MGRwY3Vvcg==" rel="noopener" target="_blank">
-<img alt="Instagram" decoding="async" loading="lazy" src="instagram.png"/>
-</a>
-<a aria-label="TikTok" class="social__link" href="#" rel="noopener" target="_blank">
-<img alt="TikTok" decoding="async" loading="lazy" src="tiktok.png"/>
-</a>
-<a aria-label="Facebook" class="social__link" href="#" rel="noopener" target="_blank">
-<img alt="Facebook" decoding="async" loading="lazy" src="facebook.png"/>
-</a>
-<a aria-label="Uber Eats" class="social__link" href="https://www.ubereats.com/store/mr-pizza/v4JKS9wiV9GBl_N_cV1ZNw" rel="noopener" target="_blank">
-<img alt="Uber Eats" decoding="async" loading="lazy" src="ubereats.png"/>
-</a>
-<a aria-label="PedidosYa" class="social__link" href="https://www.pedidosya.com.gt/restaurantes/ciudad-de-guatemala/mister-pizza-z4-aac4f772-ab3a-4694-9b73-3391a283d481-menu" rel="noopener" target="_blank">
-<img alt="PedidosYa" decoding="async" loading="lazy" src="pedidosya.png"/>
-</a>
-</div>
-</div>
-<div class="container footer-bottom">
-<p>© 2026 <strong>GASCHSOFT</strong>. Todos los derechos reservados. I Hecho en Guatemala 🇬🇹</p>
-</div>
+  <div class="container footer-brand">
+    <a class="footer-brand__logo" href="" aria-label="Ir a inicio">
+      <img id="logoFooter" alt="MR Pizza GT" decoding="async" loading="lazy" src="MR PIZZA LOGO-Ligth.png"/>
+    </a>
+    <p class="footer-brand__tagline">Soluciones gastronomicas para eventos corporativos.</p>
+  </div>
+
+  <div class="container footer-links-inline" aria-label="Enlaces del sitio">
+    <a href="preguntas/">Preguntas frecuentes</a>
+    <span class="sep">|</span>
+    <a href="quienes-somos/">Quienes somos</a>
+    <span class="sep">|</span>
+    <a href="contacto/">Contacto</a>
+    <span class="sep">|</span>
+    <a href="terminos/">Terminos de uso</a>
+    <span class="sep">|</span>
+    <a href="privacidad/">Politica de privacidad</a>
+  </div>
+
+  <div class="container">
+    <div class="social" aria-label="Redes sociales">
+      <a aria-label="WhatsApp" class="social__link" href="#" id="waFooter" rel="noopener" target="_blank">
+        <img alt="WhatsApp" decoding="async" loading="lazy" src="whatsapp.png"/>
+      </a>
+      <a aria-label="Instagram" class="social__link" href="https://www.instagram.com/misterpizzaguate?igsh=MTNjbmR1MGRwY3Vvcg==" rel="noopener" target="_blank">
+        <img alt="Instagram" decoding="async" loading="lazy" src="instagram.png"/>
+      </a>
+      <a aria-label="TikTok" class="social__link" href="#" rel="noopener" target="_blank">
+        <img alt="TikTok" decoding="async" loading="lazy" src="tiktok.png"/>
+      </a>
+      <a aria-label="Facebook" class="social__link" href="#" rel="noopener" target="_blank">
+        <img alt="Facebook" decoding="async" loading="lazy" src="facebook.png"/>
+      </a>
+      <a aria-label="Uber Eats" class="social__link" href="https://www.ubereats.com/store/mr-pizza/v4JKS9wiV9GBl_N_cV1ZNw" rel="noopener" target="_blank">
+        <img alt="Uber Eats" decoding="async" loading="lazy" src="ubereats.png"/>
+      </a>
+      <a aria-label="PedidosYa" class="social__link" href="https://www.pedidosya.com.gt/restaurantes/ciudad-de-guatemala/mister-pizza-z4-aac4f772-ab3a-4694-9b73-3391a283d481-menu" rel="noopener" target="_blank">
+        <img alt="PedidosYa" decoding="async" loading="lazy" src="pedidosya.png"/>
+      </a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© <span id="year"></span> <strong>MR Pizza GT</strong> by <strong>GaschSoft</strong>. Todos los derechos reservados. Hecho en Guatemala 🇬🇹</p>
+  </div>
 </footer>
 <!-- ===================== MODAL PUBLICO: DATOS PARA PEDIDO WHATSAPP ===================== -->
 <div aria-atomic="true" aria-live="polite" class="toast-host" id="toastHost"></div>
@@ -2774,7 +2826,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <div aria-label="Productos a incluir" class="biz-products">
 <label class="biz-check"><input id="bizProdPizzas" type="checkbox" value="Pizzas"/> <span>Pizzas</span></label>
 <label class="biz-check"><input id="bizProdCrepas" type="checkbox" value="Crepas"/> <span>Crepas</span></label>
-<label class="biz-check"><input id="bizProdFresas" type="checkbox" value="Fresas con Nutela"/> <span>Fresas con Nutela</span></label>
+<label class="biz-check"><input id="bizProdFresas" type="checkbox" value="Vaso de fresas con Pistacho"/> <span>Vaso de fresas con Pistacho</span></label>
 <label class="biz-check"><input id="bizProdBebidas" type="checkbox" value="Bebidas"/> <span>Bebidas</span></label>
 <label class="biz-check"><input id="bizProdToldos" type="checkbox" value="Toldos"/> <span>Toldos</span></label>
 </div>
@@ -2836,9 +2888,10 @@ html[data-theme="dark"] h2.menu-section-title,
 
     const headerLogo = document.getElementById("logoHeader");
     const heroLogo   = document.getElementById("logoHero");
-
+    const footerLogo = document.getElementById("logoFooter");
     if(headerLogo) headerLogo.src = src;
     if(heroLogo)   heroLogo.src = src;
+    if(footerLogo) footerLogo.src = src;
     const favicon = document.getElementById("favicon");
     if(favicon) favicon.href = (t==="dark") ? "MR PIZZA LOGO_Dark.png" : "MR PIZZA LOGO-Ligth.png";
     const cartIcon = document.getElementById("cartIcon");
@@ -2890,14 +2943,31 @@ html[data-theme="dark"] h2.menu-section-title,
     renderTheme();
   })();
 
+  // Year en footer
+  (function(){
+    const y=document.getElementById('year');
+    if(y) y.textContent = new Date().getFullYear();
+  })();
+
   // =============================
   // Router simple: si URL contiene /bussines => vista BUSINESS
   // =============================
   const state = { view: "public" }; // "public" | "business"
 
   function detectViewFromPath(){
+    // 1) Prioridad: query param (?view=business)
+    try{
+      const sp = new URLSearchParams(location.search || "");
+      const v = (sp.get("view") || "").toLowerCase();
+      if(v === "business") return "business";
+    }catch(e){}
+
+    // 2) Hash (#business)
+    const h = (location.hash || "").toLowerCase().replace("#","");
+    if(h === "business") return "business";
+
+    // 3) Path (/business o /bussines legacy)
     const p = (location.pathname || "").toLowerCase();
-    // Soportar /business (correcto) y /bussines (legacy)
     if(p.includes("/business") || p.includes("/bussines")) return "business";
     return "public";
   }
@@ -2911,22 +2981,43 @@ html[data-theme="dark"] h2.menu-section-title,
     const pyFab = document.getElementById("pyFab");
     const waFab = document.getElementById("waFab");
     const cotizaFab = document.getElementById("cotizaFab");
+    const miniCartFab = document.getElementById("miniCartFab");
 
     if(isBusinessView){
       if(ueFab) ueFab.style.display = "none";
       if(pyFab) pyFab.style.display = "none";
       if(waFab) waFab.style.display = "none";
       if(cotizaFab) cotizaFab.style.display = "";
+      // En Empresas: ocultar por completo el mini-carrito flotante (aunque haya items cargados)
+      if(miniCartFab) miniCartFab.style.display = "none";
     }else{
       if(ueFab) ueFab.style.display = "";
       if(pyFab) pyFab.style.display = "";
       if(waFab) waFab.style.display = "";
       if(cotizaFab) cotizaFab.style.display = "none";
+      // En Público: devolvemos control a su lógica/clases (hidden, items, etc.)
+      if(miniCartFab) miniCartFab.style.display = "";
     }
+  }
+
+
+  function updateUrlForView(view){
+    try{
+      const u = new URL(location.href);
+      if(view === "business"){
+        u.searchParams.set("view","business");
+      }else{
+        u.searchParams.delete("view");
+      }
+      u.hash = "";
+      history.replaceState(null, "", u.pathname + (u.search ? u.search : "") + u.hash);
+    }catch(e){}
   }
 
 function setView(view){
     state.view = view;
+
+    updateUrlForView(view);
 
     // botones
     document.getElementById("btnPublic").classList.toggle("active", view==="public");
@@ -3153,10 +3244,15 @@ function setView(view){
     const miniCartFab = document.getElementById("miniCartFab");
     const miniCartCountEl = document.getElementById("miniCartCount");
 
-    const isBusinessPath = (()=>{
+    // Nota: desde v59+ la vista Empresas vive en el MISMO index via ?view=business.
+    // Por eso no podemos depender solo de location.pathname.
+    const isBusinessPath = ()=>{
+      try{
+        if(typeof detectViewFromPath === 'function') return detectViewFromPath() === 'business';
+      }catch(e){}
       const p = (location && location.pathname ? location.pathname.toLowerCase() : '');
       return p.includes('/business') || p.includes('/bussines');
-    })();
+    };
 
     if(miniCartFab){
       miniCartFab.addEventListener('click', (e)=>{
@@ -3745,14 +3841,89 @@ if(document.readyState === 'loading'){
       closeBizModal();
     });
 
-    if(bizSendEmail) bizSendEmail.addEventListener('click', ()=>{
-      const d = collectBizData();
-      if(!validateBiz(d)) return;
-      showToast('Correo dummy enviado');
-      closeBizModal();
+    if(bizSendEmail) bizSendEmail.addEventListener('click', async ()=>{
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykpoqra";
+
+  const d = collectBizData();
+  if(!validateBiz(d)) return;
+
+  // Mensaje con el formato ya aprobado (mismo modelo que WhatsApp)
+  const msg = buildBizMessage(d);
+
+  // Overlay simple para indicar procesamiento (solo en modal Empresas)
+  let overlay;
+  try{
+    overlay = document.getElementById("bizSendOverlay");
+    if(!overlay){
+      overlay = document.createElement("div");
+      overlay.id = "bizSendOverlay";
+      overlay.className = "biz-send-overlay";
+      overlay.innerHTML = '<div class="biz-send-loader" aria-label="Enviando"></div><div class="biz-send-text">Enviando cotización…</div>';
+      const modal = document.getElementById("bizModal");
+      if(modal) modal.appendChild(overlay);
+    }
+    overlay.classList.add("show");
+  }catch(e){}
+
+  // UI: bloquear boton mientras envia + mini loader en el texto
+  const prevHtml = bizSendEmail.innerHTML;
+  try{
+    bizSendEmail.disabled = true;
+    bizSendEmail.classList.add("is-loading");
+    bizSendEmail.innerHTML = '<span>Enviando…</span><span class="btn-spinner" aria-hidden="true"></span>';
+  }catch(e){}
+
+  try{
+    const fd = new FormData();
+
+    // ✅ SOLO lo básico (para que Formspree no cree columnas extra)
+    fd.append("name", d.company || "Empresa (sin nombre)");
+    fd.append("email", d.email);
+    fd.append("message", msg);
+
+    // Asunto dinámico: Cotización — {empresa}
+    const company = (d.company || "Empresa").trim();
+    fd.append("_subject", `Cotización — ${company}`);
+
+    // Pista mínima del origen
+    fd.append("source", "Empresas / Modal Cotización");
+
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      body: fd,
+      headers: { "Accept": "application/json" }
     });
 
-    // Si el usuario presiona Enter en un campo, no enviar por default
+    if(res.ok){
+      const em = (d.email || "").trim();
+      showToast(`Hemos recibido tu email desde ${em || "tu correo"}. Te responderemos en breve.`);
+      // Limpia campos tras envio exitoso
+      try{
+        if(bizForm) bizForm.reset();
+        document
+          .querySelectorAll('#bizModal .biz-products input[type="checkbox"]')
+          .forEach(cb => cb.checked = false);
+      }catch(e){}
+      closeBizModal();
+    }else{
+      showToast("No se pudo enviar. Intenta de nuevo.");
+    }
+  }catch(err){
+    showToast("Error de red. Revisa tu conexión.");
+  }finally{
+    // Restaurar UI
+    try{
+      bizSendEmail.disabled = false;
+      bizSendEmail.classList.remove("is-loading");
+      bizSendEmail.innerHTML = prevHtml;
+    }catch(e){}
+    try{
+      if(overlay) overlay.classList.remove("show");
+    }catch(e){}
+  }
+});
+
+// Si el usuario presiona Enter en un campo, no enviar por default
     if(bizForm) bizForm.addEventListener('submit', (e)=>{ e.preventDefault(); });
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -3817,7 +3988,7 @@ if(document.readyState === 'loading'){
 
       // Mini carrito flotante
       if(miniCartCountEl) miniCartCountEl.textContent = String(total);
-      if(miniCartFab) miniCartFab.classList.toggle('hidden', isBusinessPath || total<=0);
+      if(miniCartFab) miniCartFab.classList.toggle('hidden', isBusinessPath() || total<=0);
 
       const msg = buildMessage();
       waBtn.href = msg ? ("https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg)) : ("https://wa.me/" + PHONE);
