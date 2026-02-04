@@ -47,6 +47,18 @@
 
     --danger:#ef4444;
     --header-bg: rgba(255,255,255,.78);
+
+/* Google Reviews (theme-aware) */
+--rev-card-bg: var(--surface);
+--rev-card-border: rgba(11,15,20,.10);
+--rev-card-shadow: 0 10px 26px rgba(2,6,23,.08);
+--rev-title: var(--ink);
+--rev-meta: rgba(11,15,20,.58);
+--rev-body: rgba(11,15,20,.78);
+--rev-btn-bg: var(--ctrl-bg);
+--rev-btn-border: var(--ctrl-border);
+--rev-btn-ink: var(--ink);
+--rev-btn-hover-bg: var(--ctrl-bg-hover);
   }
 
   :root[data-theme="dark"]{
@@ -65,7 +77,20 @@
     --ctrl-border: rgba(255,255,255,.25);
     --ctrl-bg: rgba(255,255,255,.06);
     --ctrl-bg-hover: rgba(255,255,255,.12);
-  }
+  
+  /* Google reviews (dark theme) */
+--rev-card-bg: rgba(12,18,30,.92);
+--rev-card-border: rgba(255,255,255,.12);
+--rev-card-shadow: 0 12px 30px rgba(0,0,0,.40);
+--rev-title: var(--ink);
+--rev-meta: rgba(229,231,235,.76);
+--rev-body: rgba(229,231,235,.86);
+--rev-btn-bg: rgba(255,255,255,.06);
+--rev-btn-border: rgba(255,255,255,.14);
+--rev-btn-ink: #e5e7eb;
+--rev-btn-hover-bg: rgba(255,255,255,.12);
+
+}
 
   *{ box-sizing:border-box; }
   body{
@@ -2041,6 +2066,138 @@ html[data-theme="dark"] h2.menu-section-title,
   transform: none !important;
 }
 
+/* ===== Google Reviews Carousel (v62_8) ===== */
+.googleReviewsCarouselWrap{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top: 18px;
+}
+
+.googleReviewsTrack{
+  flex:1;
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 2px 14px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.googleReviewsTrack::-webkit-scrollbar{ display:none; }
+
+.googleReviewCard{
+  flex: 0 0 clamp(220px, 60vw, 280px);
+  max-width: 280px;
+  scroll-snap-align: start;
+  border-radius: 18px;
+  background: var(--rev-card-bg);
+  border: 1px solid var(--rev-card-border);
+  box-shadow: none;
+  overflow: hidden;
+  display:flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.googleReviewHeader{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:14px 16px 12px 16px;
+  background: var(--rev-card-bg); /* unificado: mismo fondo que la card */
+  border-bottom: 1px solid rgba(0,0,0,.04);
+}
+:root[data-theme="dark"] .googleReviewHeader{
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.googleReviewAvatar{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0,0,0,.06);
+  flex: 0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+:root[data-theme="dark"] .googleReviewAvatar{ background: rgba(255,255,255,.08); }
+
+.googleReviewAvatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+.googleReviewMeta{ min-width:0; }
+.googleReviewName{
+  font-weight:800;
+  font-size:15px;
+  color: var(--rev-title);
+  line-height:1.15;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.googleReviewSub{
+  margin-top:4px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  color: var(--rev-meta);
+}
+.googleReviewStars{ font-size: 13px; font-weight: 800; }
+.googleReviewTime{ white-space: normal; }
+
+.googleReviewText{
+  padding:14px 16px 18px 16px;
+  color: var(--rev-body);
+  font-size: 15.5px;
+  line-height: 1.45;
+  min-height: 92px;
+}
+
+.revNav{
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--rev-btn-border);
+  background: var(--rev-btn-bg);
+  color: var(--rev-btn-ink);
+  box-shadow: none; /* sin sombras pesadas */
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+  touch-action: manipulation;
+}
+.revNav:hover{ background: var(--rev-btn-hover-bg); }
+.revNav:disabled{
+  opacity: .35;
+  cursor: default;
+}
+
+/* Responsive: 2 visibles en tablet, 1 grande en móvil */
+@media (max-width: 980px){
+  .googleReviewCard{ flex-basis: calc((100% - 14px)/2); }
+}
+@media (max-width: 640px){
+  .googleReviewsCarouselWrap{ gap:10px; }
+  .revNav{ width: 40px; height: 40px; }
+  .googleReviewCard{ flex-basis: 78%; }
+}
 </style>
 <link as="image" href="Fotosempresa/Flayer 1.webp" rel="preload"/>
 <!-- Open Graph / WhatsApp -->
@@ -2791,35 +2948,61 @@ html[data-theme="dark"] h2.menu-section-title,
 </section>
 <!-- ===================== PRUEBA SOCIAL ===================== -->
 <section class="section" id="confianza">
-<div class="container">
-<h2>Reseñas (prueba social que sí convence)</h2>
-<p></p>
-<div class="cols">
-<article class="review">
-<div class="quote">“</div>
-<p>La actividad salió ordenada, sirvieron rápido y a la gente le encantó. Cero estrés para RRHH.</p>
-<strong>— Cliente empresa</strong>
-</article>
-<article class="review">
-<div class="quote">“</div>
-<p>Pedí tarde y me confirmaron en minutos. La pizza llegó bien y estaba buenísima.</p>
-<strong>— Cliente nocturno</strong>
-</article>
-<article class="review">
-<div class="quote">“</div>
-<p>Buen servicio en evento. Crepas top. Se nota el cuidado en los detalles.</p>
-<strong>— Evento privado</strong>
-</article>
+  <div class="container">
+    <h2>Nuestras reseñas reales de Google</h2>
+    <p id="googleReviewsHint">Cargando reseñas reales desde Google…</p>
+
+    <!-- Header dinámico (rating + link a Google) -->
+    <div id="googleRatingRow" style="display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 12px;">
+      <div id="googleRatingText" style="font-weight:700;"></div>
+    </div>
+
+    <!-- Aquí se pintan las reseñas reales -->
+    <div class="googleReviewsCarouselWrap" id="googleReviewsCarouselWrap" aria-label="Reseñas de Google" style="display:none;">
+  <button class="revNav revPrev" id="revPrev" type="button" aria-label="Reseña anterior">‹</button>
+
+  <div class="googleReviewsTrack" id="googleReviewsTrack" tabindex="0" aria-label="Carrusel de reseñas">
+    <!-- Cards se renderizan aquí desde Google Places -->
+  </div>
+
+  <button class="revNav revNext" id="revNext" type="button" aria-label="Reseña siguiente">›</button>
 </div>
-<div class="cta-band" id="ctaBandFinal">
-<h3>Listo: ahora solo falta que me escribás</h3>
-<p>Te respondo con una ruta clara según lo que necesitás.</p>
-<div class="cta-row">
-<a class="btn btn-primary" href="#" id="ctaFinal" rel="noopener" target="_blank">WhatsApp</a>
-<a class="btn btn-outline" href="#valor">Volver arriba</a>
-</div>
-</div>
-</div>
+
+    <div id="googleReviewsBtnRow" style="display:none;justify-content:center;margin-top:12px;">
+      <a class="btn btn-outline" href="#" id="googleReviewsLink" rel="noopener" target="_blank" style="padding:10px 14px;display:inline-flex;align-items:center;gap:8px;">
+        <img src="Logotipos/Google.png" alt="Google" style="height:16px;width:auto;" />
+        Ver mas en Google
+      </a>
+    </div>
+
+    <!-- Fallback (si falla la API o billing) -->
+    <div class="cols" id="reviewsFallback">
+      <article class="review">
+        <div class="quote">“</div>
+        <p>La actividad salió ordenada, sirvieron rápido y a la gente le encantó. Cero estrés para RRHH.</p>
+        <strong>— Cliente empresa</strong>
+      </article>
+      <article class="review">
+        <div class="quote">“</div>
+        <p>Pedí tarde y me confirmaron en minutos. La pizza llegó bien y estaba buenísima.</p>
+        <strong>— Cliente nocturno</strong>
+      </article>
+      <article class="review">
+        <div class="quote">“</div>
+        <p>Buen servicio en evento. Crepas top. Se nota el cuidado en los detalles.</p>
+        <strong>— Evento privado</strong>
+      </article>
+    </div>
+
+    <div class="cta-band" id="ctaBandFinal">
+      <h3>Listo: ahora solo falta que me escribás</h3>
+      <p>Te respondo con una ruta clara según lo que necesitás.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#" id="ctaFinal" rel="noopener" target="_blank">WhatsApp</a>
+        <a class="btn btn-outline" href="#valor">Volver arriba</a>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- Mini Carrito (flotante, discreto) -->
 <a aria-label="Ver carrito" class="mini-cart-fab hidden" href="#" id="miniCartFab" title="Ver carrito">
@@ -4418,5 +4601,389 @@ function hideAppLoading(){
   });
 })();
 </script>
+
+<script>
+/* ===== Google Reviews (Places JS) — v62 =====
+   - Renderiza reseñas reales en carrusel (3 visibles desktop, swipe mobile)
+   - IMPORTANTE: reemplaza TU_API_KEY en el script de Google Maps más abajo
+*/
+(function(){
+  const MR_PIZZAS_PLACE_ID = "0x8589a39724e7027b:0x807d6f766016b606"; // Mr Pizzas GT (Place ID)
+
+  function escapeHtml(str){
+    return String(str || "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function setText(id, value){
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function show(id){
+    const el = document.getElementById(id);
+    if (el) el.style.display = "block";
+  }
+
+  function hide(id){
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  }
+
+  function renderReviews(place){
+    hide("googleReviewsLoading");
+    hide("googleReviewsError");
+
+    const wrap = document.getElementById("googleReviewsCarouselWrap");
+    const track = document.getElementById("googleReviewsTrack");
+    if (!wrap || !track) return;
+
+    const reviews = (place?.reviews || []).slice(0, 10);
+
+    if (!reviews.length){
+      setText("googleReviewsError", "Aun no hay resenas para mostrar.");
+      show("googleReviewsError");
+      return;
+    }
+
+    // rating + total (si existen en tu layout)
+    if (place?.rating) setText("googleRatingValue", Number(place.rating).toFixed(1));
+    if (place?.user_ratings_total != null) setText("googleRatingCount", `(${place.user_ratings_total})`);
+
+    const googleLogo = "Logotipos/Google.png";
+
+    track.innerHTML = reviews.map(r => {
+      const name = escapeHtml(r.author_name || "Anonimo");
+      const photo = r.profile_photo_url || "";
+      const time = escapeHtml(r.relative_time_description || "");
+      const rating = Math.max(0, Math.min(5, r.rating || 0));
+      const stars = "⭐".repeat(rating);
+      const text = escapeHtml((r.text || "").trim() || "Resena sin texto.");
+
+      return `
+        <article class="googleReviewCard">
+          <div class="googleReviewHeader">
+            <div class="googleReviewUser">
+              ${photo ? `<img class="googleReviewAvatar" src="${photo}" alt="${name}">`
+                      : `<div class="googleReviewAvatar" aria-hidden="true"></div>`}
+              <div style="min-width:0">
+                <div class="googleReviewName" title="${name}">${name}</div>
+                <div class="googleReviewMeta">${time}</div>
+              </div>
+            </div>
+
+            <div class="googleReviewSource" title="Resena verificada de Google">
+              <img class="googleReviewGoogleLogo" src="${googleLogo}" alt="Google">
+              <div class="googleReviewStars" aria-label="Calificacion ${rating} de 5">${stars}</div>
+            </div>
+          </div>
+
+          <p class="googleReviewText">${text}</p>
+        </article>
+      `;
+    }).join("");
+
+    wrap.style.display = "flex";
+
+    // nav
+    const prev = document.getElementById("revPrev");
+    const next = document.getElementById("revNext");
+
+    function step(){
+      const card = track.querySelector(".googleReviewCard");
+      if (!card) return 320;
+      const gap = 18;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function updateNav(){
+      if (!prev || !next) return;
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= maxScroll;
+    }
+
+    function scrollDir(dir){
+      track.scrollBy({ left: step() * dir, behavior: "smooth" });
+    }
+
+    // Navegacion por botones (si existen)
+    if (prev && next){
+      prev.onclick = () => scrollDir(-1);
+      next.onclick = () => scrollDir(1);
+    }
+
+    // Drag / swipe (mouse + touch) para que SIEMPRE se pueda mover
+    let isDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const onPointerDown = (e) => {
+      isDown = true;
+      startX = e.clientX;
+      startScrollLeft = track.scrollLeft;
+      try { track.setPointerCapture(e.pointerId); } catch(_){}
+    };
+    const onPointerMove = (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      track.scrollLeft = startScrollLeft - dx;
+    };
+    const onPointerUp = () => { isDown = false; };
+
+    track.addEventListener("pointerdown", onPointerDown);
+    track.addEventListener("pointermove", onPointerMove);
+    track.addEventListener("pointerup", onPointerUp);
+    track.addEventListener("pointercancel", onPointerUp);
+    track.addEventListener("pointerleave", onPointerUp);
+
+    // Rueda del mouse -> scroll horizontal (comodisimo en desktop)
+    track.addEventListener("wheel", (e) => {
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      if (absY > absX){
+        track.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    track.addEventListener("scroll", updateNav, { passive: true });
+    window.addEventListener("resize", updateNav);
+    setTimeout(updateNav, 200);
+  }
+
+  // Google Maps callback (debe ser global)
+  window.initGoogleReviews = function(){
+    // Config (no backend): resolve Place ID at runtime to avoid "Place ID no longer valid"
+    const GOOGLE_LOGO = "Logotipos/Google.png";
+    const PLACE_QUERY = "Mr Pizzas GT, Guatemala";
+
+    const $ = (id) => document.getElementById(id);
+
+    const hintEl = $("googleReviewsHint");
+    const ratingRowEl = $("googleRatingRow");
+    const ratingTextEl = $("googleRatingText");
+    const linkEl = $("googleReviewsLink");
+    const btnRowEl = $("googleReviewsBtnRow");
+    const wrapEl = $("googleReviewsCarouselWrap");
+    const trackEl = $("googleReviewsTrack");
+    const fallbackEl = $("reviewsFallback");
+    const prevBtn = $("revPrev");
+    const nextBtn = $("revNext");
+
+    function setState(state){
+      if (!hintEl || !ratingRowEl || !btnRowEl || !wrapEl || !fallbackEl) return;
+      if (state === "loading"){
+        hintEl.style.display = "";
+        ratingRowEl.style.display = "none";
+        btnRowEl.style.display = "none";
+        wrapEl.style.display = "none";
+        fallbackEl.style.display = "none";
+      } else if (state === "ok"){
+        hintEl.style.display = "none";
+        ratingRowEl.style.display = "";
+        btnRowEl.style.display = "flex";
+        wrapEl.style.display = "";
+        fallbackEl.style.display = "none";
+      } else {
+        hintEl.style.display = "none";
+        ratingRowEl.style.display = "none";
+        btnRowEl.style.display = "none";
+        wrapEl.style.display = "none";
+        fallbackEl.style.display = "";
+      }
+    }
+
+    function starsText(r){
+      const full = Math.round(r);
+      const empty = 5 - full;
+      return "⭐".repeat(full);
+    }
+
+    function escapeHtml(str){
+      return String(str ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function render(place){
+      const rating = place.rating ?? null;
+      const total = place.user_ratings_total ?? null;
+
+      // Header / rating row
+      if (ratingTextEl){
+        const ratingStr = rating ? `${rating.toFixed(1)} / 5` : "—";
+        const totalStr = total != null ? `(${total} reseñas)` : "";
+        ratingTextEl.innerHTML = `
+          <span class="gr-stars" aria-label="${ratingStr}">${rating ? starsText(rating) : "—"}</span>
+          <span class="gr-score">${ratingStr}</span>
+          <span class="gr-total">${totalStr}</span>
+          <span class="gr-src" style="display:inline-flex;align-items:center;gap:6px;margin-left:6px;">
+            <img src="${GOOGLE_LOGO}" alt="Google" loading="lazy" style="height:18px;width:auto;vertical-align:middle;" />
+          </span>
+        `;
+      }
+
+      if (linkEl && place.url){
+        linkEl.href = place.url;
+      }
+
+      const reviewsRaw = Array.isArray(place.reviews) ? place.reviews : [];
+      // Google suele ordenar por "relevancia"; para UX, mostramos las más recientes primero.
+      // (No cambia la integración: solo ordenamos el array ya recibido.)
+      const reviews = reviewsRaw
+        .slice()
+        .sort((a,b) => (b.time || 0) - (a.time || 0))
+        .slice(0, 7);
+      if (!trackEl) return;
+
+      // Build cards (Google suele devolver un subconjunto; renderizamos todas las que vengan)
+      const cards = reviews.map((r) => {
+        const name = escapeHtml(r.author_name || "Usuario");
+        const photo = r.profile_photo_url ? escapeHtml(r.profile_photo_url) : "";
+        const txt = escapeHtml(r.text || "").replace(/\n/g,"<br>");
+        const rt = typeof r.rating === "number" ? r.rating : null;
+        const time = escapeHtml(r.relative_time_description || "");
+        return `
+          <article class="googleReviewCard" role="group" aria-label="Reseña de ${name}">
+            <header class="googleReviewHeader">
+              <div class="googleReviewAvatar">
+                ${photo ? `<img src="${photo}" alt="${name}" loading="lazy" referrerpolicy="no-referrer" />` : ``}
+              </div>
+              <div class="googleReviewMeta">
+                <div class="googleReviewName">${name}</div>
+                <div class="googleReviewSub">
+                  <span class="googleReviewStars">${rt ? starsText(rt) : ""}</span>
+                  <span class="googleReviewTime">${time}</span>
+                </div>
+              </div>
+            </header>
+            <p class="googleReviewText">${txt || "—"}</p>
+          </article>
+        `;
+      }).join("");
+
+      trackEl.innerHTML = cards || `<div class="googleReviewEmpty">Aún no hay reseñas para mostrar.</div>`;
+      // Nav (botones SIEMPRE funcionales) — el scroll vive en trackEl, no en el wrapper
+      function updateNav(){
+        if (!trackEl || !prevBtn || !nextBtn) return;
+        const max = Math.max(0, trackEl.scrollWidth - trackEl.clientWidth - 2);
+        prevBtn.disabled = trackEl.scrollLeft <= 2;
+        nextBtn.disabled = trackEl.scrollLeft >= max;
+      }
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scrollStep = () => Math.max(260, Math.round(trackEl.clientWidth * 0.92));
+
+      if (trackEl && prevBtn && nextBtn){
+        prevBtn.onclick = () => trackEl.scrollBy({ left: -scrollStep(), behavior: reduceMotion ? "auto" : "smooth" });
+        nextBtn.onclick = () => trackEl.scrollBy({ left:  scrollStep(), behavior: reduceMotion ? "auto" : "smooth" });
+
+        trackEl.addEventListener("scroll", () => requestAnimationFrame(updateNav), { passive:true });
+        window.addEventListener("resize", () => requestAnimationFrame(updateNav));
+        setTimeout(updateNav, 120);
+
+        // Teclado (cuando el carrusel tiene foco): ← / →
+        trackEl.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowLeft"){ e.preventDefault(); prevBtn.click(); }
+          if (e.key === "ArrowRight"){ e.preventDefault(); nextBtn.click(); }
+        });
+      }
+
+    }
+
+    function getService(){
+      return new google.maps.places.PlacesService(document.createElement("div"));
+    }
+
+    function resolvePlaceId(cb){
+      // If MR_PIZZAS_PLACE_ID is already a modern Place ID (ChIJ...), use it.
+      if (typeof MR_PIZZAS_PLACE_ID === "string" && MR_PIZZAS_PLACE_ID.startsWith("ChI")){
+        cb(MR_PIZZAS_PLACE_ID);
+        return;
+      }
+
+      // Otherwise, search by query (fresh place_id each time).
+      const svc = getService();
+      svc.findPlaceFromQuery(
+        { query: PLACE_QUERY, fields: ["place_id","name"] },
+        (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0] && results[0].place_id){
+            cb(results[0].place_id);
+          } else {
+            cb(null);
+          }
+        }
+      );
+    }
+
+    function fetchDetails(placeId, cb){
+      const svc = getService();
+      svc.getDetails(
+        { placeId, fields: ["name","rating","user_ratings_total","reviews","url"] },
+        (place, status) => cb(place, status)
+      );
+    }
+
+    // Run
+    setState("loading");
+
+    resolvePlaceId((placeId) => {
+      if (!placeId){
+        setState("error");
+        return;
+      }
+
+      fetchDetails(placeId, (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && place){
+          setState("ok");
+          render(place);
+          return;
+        }
+
+        // If cached Place ID got invalidated, try again (fresh search).
+        if (String(status).toUpperCase().includes("INVALID_REQUEST")){
+          resolvePlaceId((placeId2) => {
+            if (!placeId2){
+              setState("error");
+              return;
+            }
+            fetchDetails(placeId2, (place2, status2) => {
+              if (status2 === google.maps.places.PlacesServiceStatus.OK && place2){
+                setState("ok");
+                render(place2);
+              } else {
+                setState("error");
+              }
+            });
+          });
+          return;
+        }
+
+        setState("error");
+      });
+    });
+  };
+})();
+</script>
+
+
+<!-- Google Maps JS + Places Library -->
+<!-- IMPORTANTE: reemplazá REEMPLAZA_CON_TU_API_KEY por tu key -->
+
+<!-- (v62) Script duplicado de pruebas removido -->
+
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ62QQZoJNn0Lx3XngxG2uedtBZ2QIwew&libraries=places&v=weekly&callback=initGoogleReviews">
+</script>
+
 </body>
 </html>
