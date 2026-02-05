@@ -1656,6 +1656,7 @@
   #bizModal .biz-check input{
     width: 14px;
     height: 14px;
+    flex-shrink: 0; /* Evita que el checkbox se comprima con textos largos */
     accent-color: #ff0100;
     transform: translateY(1px);
   }
@@ -1669,7 +1670,7 @@
   /* v54_13 — Productos alineado con los demas campos (icono + label) */
   #bizModal .biz-field-products{ grid-column: 2; }
   #bizModal .biz-field-products .biz-products{
-    margin-top: 6px;
+    margin-top: 2px; /* Reducido de 6px a 2px para dar espacio a 7 productos */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px 10px;
@@ -2603,6 +2604,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering2.webp"/>
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering3.webp"/>
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering4.webp"/>
+<img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering5.webp"/>
 </div>
 <button aria-label="Anterior" class="biz-carousel__btn biz-carousel__btn--prev" id="bizHeroPrev" type="button">‹</button>
 <button aria-label="Siguiente" class="biz-carousel__btn biz-carousel__btn--next" id="bizHeroNext" type="button">›</button>
@@ -3217,6 +3219,8 @@ html[data-theme="dark"] h2.menu-section-title,
 <label class="biz-check"><input id="bizProdFresas" type="checkbox" value="Vaso de fresas con Pistacho"/> <span>Vaso de fresas con Pistacho</span></label>
 <label class="biz-check"><input id="bizProdBebidas" type="checkbox" value="Bebidas"/> <span>Bebidas</span></label>
 <label class="biz-check"><input id="bizProdToldos" type="checkbox" value="Toldos"/> <span>Toldos</span></label>
+<label class="biz-check"><input id="bizProdCarpachos" type="checkbox" value="Carpachos"/> <span>Carpachos</span></label>
+<label class="biz-check"><input id="bizProdNachos" type="checkbox" value="Nachos"/> <span>Nachos</span></label>
 </div>
 <div aria-live="polite" class="field-error" id="bizErrProducts"></div>
 </div>

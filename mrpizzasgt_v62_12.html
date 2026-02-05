@@ -47,6 +47,18 @@
 
     --danger:#ef4444;
     --header-bg: rgba(255,255,255,.78);
+
+/* Google Reviews (theme-aware) */
+--rev-card-bg: var(--surface);
+--rev-card-border: rgba(11,15,20,.10);
+--rev-card-shadow: 0 10px 26px rgba(2,6,23,.08);
+--rev-title: var(--ink);
+--rev-meta: rgba(11,15,20,.58);
+--rev-body: rgba(11,15,20,.78);
+--rev-btn-bg: var(--ctrl-bg);
+--rev-btn-border: var(--ctrl-border);
+--rev-btn-ink: var(--ink);
+--rev-btn-hover-bg: var(--ctrl-bg-hover);
   }
 
   :root[data-theme="dark"]{
@@ -65,7 +77,20 @@
     --ctrl-border: rgba(255,255,255,.25);
     --ctrl-bg: rgba(255,255,255,.06);
     --ctrl-bg-hover: rgba(255,255,255,.12);
-  }
+  
+  /* Google reviews (dark theme) */
+--rev-card-bg: rgba(12,18,30,.92);
+--rev-card-border: rgba(255,255,255,.12);
+--rev-card-shadow: 0 12px 30px rgba(0,0,0,.40);
+--rev-title: var(--ink);
+--rev-meta: rgba(229,231,235,.76);
+--rev-body: rgba(229,231,235,.86);
+--rev-btn-bg: rgba(255,255,255,.06);
+--rev-btn-border: rgba(255,255,255,.14);
+--rev-btn-ink: #e5e7eb;
+--rev-btn-hover-bg: rgba(255,255,255,.12);
+
+}
 
   *{ box-sizing:border-box; }
   body{
@@ -1631,6 +1656,7 @@
   #bizModal .biz-check input{
     width: 14px;
     height: 14px;
+    flex-shrink: 0; /* Evita que el checkbox se comprima con textos largos */
     accent-color: #ff0100;
     transform: translateY(1px);
   }
@@ -1644,7 +1670,7 @@
   /* v54_13 — Productos alineado con los demas campos (icono + label) */
   #bizModal .biz-field-products{ grid-column: 2; }
   #bizModal .biz-field-products .biz-products{
-    margin-top: 6px;
+    margin-top: 2px; /* Reducido de 6px a 2px para dar espacio a 7 productos */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px 10px;
@@ -2033,28 +2059,369 @@ html[data-theme="dark"] h2.menu-section-title,
   .footer-links-inline a:hover{ text-decoration: underline; }
   .footer-links-inline .sep{ opacity:.35; }
 
+
+/* v61_9: asegurar que el sobre se complete antes de ocultar */
+#appLoading.is-finishing svg{
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ===== Google Reviews Carousel (v62_8) ===== */
+.googleReviewsCarouselWrap{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top: 18px;
+}
+
+.googleReviewsTrack{
+  flex:1;
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 2px 14px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.googleReviewsTrack::-webkit-scrollbar{ display:none; }
+
+.googleReviewCard{
+  flex: 0 0 clamp(220px, 60vw, 280px);
+  max-width: 280px;
+  scroll-snap-align: start;
+  border-radius: 18px;
+  background: var(--rev-card-bg);
+  border: 1px solid var(--rev-card-border);
+  box-shadow: none;
+  overflow: hidden;
+  display:flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.googleReviewHeader{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:14px 16px 12px 16px;
+  background: var(--rev-card-bg); /* unificado: mismo fondo que la card */
+  border-bottom: 1px solid rgba(0,0,0,.04);
+}
+:root[data-theme="dark"] .googleReviewHeader{
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.googleReviewAvatar{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0,0,0,.06);
+  flex: 0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+:root[data-theme="dark"] .googleReviewAvatar{ background: rgba(255,255,255,.08); }
+
+.googleReviewAvatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+.googleReviewMeta{ min-width:0; }
+.googleReviewName{
+  font-weight:800;
+  font-size:15px;
+  color: var(--rev-title);
+  line-height:1.15;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.googleReviewSub{
+  margin-top:4px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  color: var(--rev-meta);
+}
+.googleReviewStars{ font-size: 13px; font-weight: 800; }
+.googleReviewTime{ white-space: normal; }
+
+.googleReviewText{
+  padding:14px 16px 18px 16px;
+  color: var(--rev-body);
+  font-size: 15.5px;
+  line-height: 1.45;
+  min-height: 92px;
+}
+
+.revNav{
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--rev-btn-border);
+  background: var(--rev-btn-bg);
+  color: var(--rev-btn-ink);
+  box-shadow: none; /* sin sombras pesadas */
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+  touch-action: manipulation;
+}
+.revNav:hover{ background: var(--rev-btn-hover-bg); }
+.revNav:disabled{
+  opacity: .35;
+  cursor: default;
+}
+
+/* Responsive: 2 visibles en tablet, 1 grande en móvil */
+@media (max-width: 980px){
+  .googleReviewCard{ flex-basis: calc((100% - 14px)/2); }
+}
+@media (max-width: 640px){
+  .googleReviewsCarouselWrap{ gap:10px; }
+  .revNav{ width: 40px; height: 40px; }
+  .googleReviewCard{ flex-basis: 78%; }
+}
 </style>
 <link as="image" href="Fotosempresa/Flayer 1.webp" rel="preload"/>
 <!-- Open Graph / WhatsApp -->
 <meta content="website" property="og:type"/>
 <meta content="Mr Pizza GT | Pizzas &amp; Crepas para Empresas y Pedidos Nocturnos" property="og:title"/>
 <meta content="Pizzas y crepas para pedidos nocturnos y convivios empresariales. Confirmamos rápido y entregamos sin complicarte." property="og:description"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/" property="og:url"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
+<meta property="og:url" content="https://mrpizzasgt.com/">
+<meta property="og:image" content="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta content="https://mrpizzasgt/" property="https://mrpizzasgt.com/"/>
+<meta content="https://mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png"/>
+<meta content="1200" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png:width"/>
+<meta content="630" property="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png:height"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Mr Pizza GT | Pizzas &amp; Crepas" name="twitter:title"/>
 <meta content="Pedidos nocturnos y eventos empresariales sin complicarte." name="twitter:description"/>
-<meta content="https://gaschsoft.com/mrpizzasgt/MR%20PIZZA%20LOGO-Ligth.png" name="twitter:image"/>
+<meta content="https://mrpizzasgt.com/MR%20PIZZA%20LOGO-Ligth.png" name="twitter:image"/>
 <!-- Favicons / PWA -->
 <meta content="#b81f24" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="default" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="Mr Pizza GT" name="apple-mobile-web-app-title"/>
+
+<style id="appLoadingStyles">
+  /* ===========================
+     Loader GLOBAL (App Loading)
+     Reutilizable: Empresas, Contacto, futuro checkout
+     =========================== */
+  body.is-app-loading{ overflow:hidden; }
+
+  .app-loading{
+  pointer-events: all;
+
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  
+
+/* v61_6: Loader global minimal (solo sobre, sin atenuar ni tarjeta) */
+.app-loading{
+  background: transparent !important;   /* sin atenuar */
+  backdrop-filter: none !important;
+}
+.app-loading svg{
+  width: 160px;
+  height: auto;
+  display:block;
+}
+.app-loading.is-hidden{ display:none; }
+
+  .app-loading__card{
+    width: min(520px, 92vw);
+    border-radius: 18px;
+    background: rgba(18,18,18,.88);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    padding: 22px 18px 18px;
+    text-align: center;
+    color: #fff;
+  }
+  .app-loading__title{
+    font-weight: 800;
+    letter-spacing: .2px;
+    margin: 6px 0 4px;
+    font-size: 18px;
+  }
+  .app-loading__text{
+    opacity: .9;
+    margin: 0 0 8px;
+    font-size: 14px;
+  }
+  .app-loading__hint{
+    opacity: .7;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  /* Envelope loader (adaptado a CSS puro, sin SCSS) */
+  .app-loading svg{
+    display:block;
+    width: min(260px, 70vw);
+    height: auto;
+    margin: 0 auto 10px;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+    animation: envelope-enter 1.2s ease-out both, envelope-pulse 2s 1.6s ease-in-out infinite;
+  }
+
+  .app-loading .st0{ fill:#b3b3b3 }
+  .app-loading .st1{ fill:#e6e6e6 }
+  .app-loading .st2{ fill:#ccc }
+
+  /* Colores “lighten/darken” aproximados */
+  .app-loading{ --env:#d30133; --env-light:#ff4d6d; --env-mid:#d30133; --env-dark:#9d0026; }
+
+  #letter-top{ animation: letter-top 1.2s ease-out both; transform-origin: 50% 32%; }
+  #letter-top-2{ animation: letter-top-2 1.2s ease-out both; transform-origin: 50% 32%; }
+  #letter-bottom{ animation: letter-bottom 1.2s ease 0.6s both; }
+  #envelope-back{ animation: envelope-back .8s ease 0.9s both; }
+
+  #envelope-top{ animation: envelope-top 1s ease-in-out 1.1s both; transform-origin: 50% 30%; }
+  #envelope-top-shadow{ animation: envelope-top-shadow 1s ease-in-out 1.1s both; transform-origin: 50% 30%; }
+  #envelope-right{ animation: envelope-right 1s ease-in-out 1.1s both; transform-origin: 69.5% 50%; }
+  #envelope-left{ animation: envelope-left 1s ease-in-out 1.1s both; transform-origin: 30.5% 50%; }
+  #envelope-bottom{ animation: envelope-bottom 1s ease-in-out 1.1s both; transform-origin: 50% 70%; }
+
+  @keyframes envelope-back{ from{opacity:0} to{opacity:1} }
+  @keyframes envelope-enter{
+    0%{ opacity:0; transform: scale(.85) translateY(8px); }
+    100%{ opacity:1; transform: scale(1) translateY(0); }
+  }
+  @keyframes envelope-pulse{
+    0%,25%{ transform: scale(1); }
+    50%{ transform: scale(.97); }
+    100%{ transform: scale(1); }
+  }
+
+  @keyframes letter-top{
+    0%{ transform: scaleY(-1) skewX(0deg); fill:#e6e6e6; }
+    50%{ transform: scaleY(0) skewX(-10deg); fill:#cfcfcf; }
+    100%{ transform: scaleY(1) skewX(0deg); fill:#e6e6e6; }
+  }
+  @keyframes letter-top-2{
+    0%{ transform: scaleY(-1) skewX(0deg); fill:#e6e6e6; }
+    50%{ transform: scaleY(0) skewX(10deg); fill:#cfcfcf; }
+    100%{ transform: scaleY(1) skewX(0deg); fill:#e6e6e6; }
+  }
+  @keyframes letter-bottom{ from{fill:#e6e6e6} to{fill:#d9d9d9} }
+
+  @keyframes envelope-top{
+    0%{ transform: scaleY(0); fill: var(--env-light); }
+    50%{ transform: scaleY(-1); fill: var(--env-mid); }
+    100%{ transform: scaleY(1); fill: var(--env-mid); }
+  }
+  @keyframes envelope-top-shadow{
+    0%{ opacity:0; }
+    65%{ opacity:0; transform: scaleY(1.5); }
+    100%{ opacity:.25; transform: scaleY(1); }
+  }
+  @keyframes envelope-right{
+    0%{ transform: scaleX(0); fill:#e9e9e9; }
+    50%{ transform: scaleX(-1); fill:#ccc; }
+    100%{ transform: scaleX(1); fill:#bdbdbd; }
+  }
+  @keyframes envelope-left{
+    0%{ transform: scaleX(0); fill:#e9e9e9; }
+    50%{ transform: scaleX(-1); fill:#ccc; }
+    100%{ transform: scaleX(1); fill:#bdbdbd; }
+  }
+  @keyframes envelope-bottom{
+    0%{ transform: scaleY(0); fill:#8f8f8f; }
+    50%{ transform: scaleY(-1); fill:#b3b3b3; }
+    100%{ transform: scaleY(1); fill:#c8c8c8; }
+  }
+
+  /* Accesibilidad: reduce motion */
+  @media (prefers-reduced-motion: reduce){
+    .app-loading svg, #letter-top, #letter-top-2, #letter-bottom, #envelope-back,
+    #envelope-top, #envelope-top-shadow, #envelope-right, #envelope-left, #envelope-bottom{
+      animation: none !important;
+    }
+  }
+
+  /* v61_11: acelerar animación del sobre para que siempre se vea completa */
+  .app-loading svg{
+    animation: envelope-enter .6s ease-out both, envelope-pulse 1.2s .8s ease-in-out infinite !important;
+  }
+  #letter-top{ animation: letter-top .6s ease-out both !important; }
+  #letter-top-2{ animation: letter-top-2 .6s ease-out both !important; }
+  #letter-bottom{ animation: letter-bottom .6s ease-out .35s both !important; }
+  #envelope-back{ animation: envelope-back .35s ease-out .4s both !important; }
+
+  #envelope-top{ animation: envelope-top .55s ease-in-out .55s both !important; }
+  #envelope-top-shadow{ animation: envelope-top-shadow .55s ease-in-out .55s both !important; }
+  #envelope-right{ animation: envelope-right .55s ease-in-out .55s both !important; }
+  #envelope-left{ animation: envelope-left .55s ease-in-out .55s both !important; }
+  #envelope-bottom{ animation: envelope-bottom .55s ease-in-out .55s both !important; }
+
+  /* Al cerrar: congelar en estado final (sin “corte” a medias) */
+  #appLoading.is-finishing svg,
+  #appLoading.is-finishing #letter-top,
+  #appLoading.is-finishing #letter-top-2,
+  #appLoading.is-finishing #letter-bottom,
+  #appLoading.is-finishing #envelope-back,
+  #appLoading.is-finishing #envelope-top,
+  #appLoading.is-finishing #envelope-top-shadow,
+  #appLoading.is-finishing #envelope-right,
+  #appLoading.is-finishing #envelope-left,
+  #appLoading.is-finishing #envelope-bottom{
+    animation: none !important;
+  }
+
+</style>
+
 </head>
 <body>
+
+  <!-- Loader GLOBAL (reutilizable en toda la app) -->
+  <div id="appLoading" class="app-loading is-hidden" role="status" aria-live="polite" aria-hidden="true">
+    
+  <svg id="envelope" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" aria-hidden="true">
+        <path class="st0" d="M440 350H200c-2.8 0-5-2.2-5-5V155c0-2.8 2.2-5 5-5h240c2.8 0 5 2.2 5 5v190c0 2.8-2.2 5-5 5z" id="envelope-back"/>
+        <path id="letter-bottom" class="st1" d="M198 156h243v189H198z"/>
+        <path id="letter-top" class="st1" d="M198 156h243v189H198z"/>
+        <path id="letter-top-2" class="st1" d="M198 156h243v189H198z"/>
+        <path class="st2" d="M332.2 244.7c2-11.9 109-93.7 109-93.7 2.1 0 3.8 1.5 3.8 3.3v191.9c0 1.8-1.7 3.3-3.8 3.3 0 0-108.2-79.4-109-94.2-.1-2.1-.3-8.6 0-10.6z" id="envelope-right"/>
+        <path class="st2" d="M307.8 255.8c-2 11.9-109 93.7-109 93.7-2.1 0-3.8-1.5-3.8-3.3V154.3c0-1.8 1.7-3.3 3.8-3.3 0 0 108.2 79.4 109 94.2.1 2.1.3 8.6 0 10.6z" id="envelope-left"/>
+        <path class="st0" d="M327 249.3c15 1.7 118 97.3 118 97.3 0 1.9-1.9 3.4-4.2 3.4H199.2c-2.3 0-4.2-1.5-4.2-3.4 0 0 100-96.6 118.6-97.3 2.7-.2 10.9-.3 13.4 0z" id="envelope-bottom"/>
+        <path d="M319.4 295c-3.1 0-7.6-.6-11.1-4.1C274 257 195 154.3 195 154.3c0-2.4 1.9-4.3 4.2-4.3h241.6c2.3 0 4.2 1.9 4.2 4.3 0 0-82 103.6-115.5 136.6-3.1 3-7.1 4.1-10.1 4.1z" fill="gray" id="envelope-top-shadow"/>
+        <path class="st1" d="M319.4 291c-3.1 0-7.6-.5-11.1-4C274 254 195 154.2 195 154.2c0-2.3 1.9-4.2 4.2-4.2h241.6c2.3 0 4.2 1.9 4.2 4.2 0 0-82 100.8-115.5 132.8-3.1 2.9-7.1 4-10.1 4z" id="envelope-top"/>
+      </svg>
+</div>
+
+
 <header>
 <div class="container row">
 <div class="brand">
@@ -2237,6 +2604,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering2.webp"/>
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering3.webp"/>
 <img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering4.webp"/>
+<img alt="Catering empresarial Mr Pizza GT" decoding="async" loading="lazy" src="Fotosempresa/FotoCatering5.webp"/>
 </div>
 <button aria-label="Anterior" class="biz-carousel__btn biz-carousel__btn--prev" id="bizHeroPrev" type="button">‹</button>
 <button aria-label="Siguiente" class="biz-carousel__btn biz-carousel__btn--next" id="bizHeroNext" type="button">›</button>
@@ -2314,7 +2682,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <!-- ===================== SECCIÓN CONDICIONAL: PÚBLICO ===================== -->
 <section class="section" id="pubSection">
 <div class="container">
-<h2>Público: pedí en la noche sin complicarte</h2>
+<h2>Pedí en la noche sin complicarte</h2>
 <p>
         Cuando el antojo pega, lo resolvemos rápido. Vos escribís, confirmamos disponibilidad y listo.
       </p>
@@ -2324,8 +2692,8 @@ html[data-theme="dark"] h2.menu-section-title,
 <span class="menu-toggle__left">
 <span class="menu-toggle__icon">🍕</span>
 <span>
-<strong class="menu-title">Nuestras pizzas</strong>
-<span class="menu-toggle__meta">Q85 • 8 porciones • 8 sabores</span>
+<strong class="menu-title">Nuestro Menú</strong>
+<span class="menu-toggle__meta">Pizzas Q85 • 8 porciones • 8 sabores</span>
 </span>
 </span>
 <span aria-hidden="true" class="menu-toggle__chev">▾</span>
@@ -2582,35 +2950,61 @@ html[data-theme="dark"] h2.menu-section-title,
 </section>
 <!-- ===================== PRUEBA SOCIAL ===================== -->
 <section class="section" id="confianza">
-<div class="container">
-<h2>Reseñas (prueba social que sí convence)</h2>
-<p></p>
-<div class="cols">
-<article class="review">
-<div class="quote">“</div>
-<p>La actividad salió ordenada, sirvieron rápido y a la gente le encantó. Cero estrés para RRHH.</p>
-<strong>— Cliente empresa</strong>
-</article>
-<article class="review">
-<div class="quote">“</div>
-<p>Pedí tarde y me confirmaron en minutos. La pizza llegó bien y estaba buenísima.</p>
-<strong>— Cliente nocturno</strong>
-</article>
-<article class="review">
-<div class="quote">“</div>
-<p>Buen servicio en evento. Crepas top. Se nota el cuidado en los detalles.</p>
-<strong>— Evento privado</strong>
-</article>
+  <div class="container">
+    <h2>Nuestras reseñas reales de Google</h2>
+    <p id="googleReviewsHint">Cargando reseñas reales desde Google…</p>
+
+    <!-- Header dinámico (rating + link a Google) -->
+    <div id="googleRatingRow" style="display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 12px;">
+      <div id="googleRatingText" style="font-weight:700;"></div>
+    </div>
+
+    <!-- Aquí se pintan las reseñas reales -->
+    <div class="googleReviewsCarouselWrap" id="googleReviewsCarouselWrap" aria-label="Reseñas de Google" style="display:none;">
+  <button class="revNav revPrev" id="revPrev" type="button" aria-label="Reseña anterior">‹</button>
+
+  <div class="googleReviewsTrack" id="googleReviewsTrack" tabindex="0" aria-label="Carrusel de reseñas">
+    <!-- Cards se renderizan aquí desde Google Places -->
+  </div>
+
+  <button class="revNav revNext" id="revNext" type="button" aria-label="Reseña siguiente">›</button>
 </div>
-<div class="cta-band" id="ctaBandFinal">
-<h3>Listo: ahora solo falta que me escribás</h3>
-<p>Te respondo con una ruta clara según lo que necesitás.</p>
-<div class="cta-row">
-<a class="btn btn-primary" href="#" id="ctaFinal" rel="noopener" target="_blank">WhatsApp</a>
-<a class="btn btn-outline" href="#valor">Volver arriba</a>
-</div>
-</div>
-</div>
+
+    <div id="googleReviewsBtnRow" style="display:none;justify-content:center;margin-top:12px;">
+      <a class="btn btn-outline" href="#" id="googleReviewsLink" rel="noopener" target="_blank" style="padding:10px 14px;display:inline-flex;align-items:center;gap:8px;">
+        <img src="Logotipos/Google.png" alt="Google" style="height:16px;width:auto;" />
+        Ver mas en Google
+      </a>
+    </div>
+
+    <!-- Fallback (si falla la API o billing) -->
+    <div class="cols" id="reviewsFallback">
+      <article class="review">
+        <div class="quote">“</div>
+        <p>La actividad salió ordenada, sirvieron rápido y a la gente le encantó. Cero estrés para RRHH.</p>
+        <strong>— Cliente empresa</strong>
+      </article>
+      <article class="review">
+        <div class="quote">“</div>
+        <p>Pedí tarde y me confirmaron en minutos. La pizza llegó bien y estaba buenísima.</p>
+        <strong>— Cliente nocturno</strong>
+      </article>
+      <article class="review">
+        <div class="quote">“</div>
+        <p>Buen servicio en evento. Crepas top. Se nota el cuidado en los detalles.</p>
+        <strong>— Evento privado</strong>
+      </article>
+    </div>
+
+    <div class="cta-band" id="ctaBandFinal">
+      <h3>Listo: ahora solo falta que me escribás</h3>
+      <p>Te respondo con una ruta clara según lo que necesitás.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#" id="ctaFinal" rel="noopener" target="_blank">WhatsApp</a>
+        <a class="btn btn-outline" href="#valor">Volver arriba</a>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- Mini Carrito (flotante, discreto) -->
 <a aria-label="Ver carrito" class="mini-cart-fab hidden" href="#" id="miniCartFab" title="Ver carrito">
@@ -2822,9 +3216,11 @@ html[data-theme="dark"] h2.menu-section-title,
 <div aria-label="Productos a incluir" class="biz-products">
 <label class="biz-check"><input id="bizProdPizzas" type="checkbox" value="Pizzas"/> <span>Pizzas</span></label>
 <label class="biz-check"><input id="bizProdCrepas" type="checkbox" value="Crepas"/> <span>Crepas</span></label>
-<label class="biz-check"><input id="bizProdFresas" type="checkbox" value="Fresas con Nutela"/> <span>Fresas con Nutela</span></label>
+<label class="biz-check"><input id="bizProdFresas" type="checkbox" value="Vaso de fresas con Pistacho"/> <span>Vaso de fresas con Pistacho</span></label>
 <label class="biz-check"><input id="bizProdBebidas" type="checkbox" value="Bebidas"/> <span>Bebidas</span></label>
 <label class="biz-check"><input id="bizProdToldos" type="checkbox" value="Toldos"/> <span>Toldos</span></label>
+<label class="biz-check"><input id="bizProdCarpachos" type="checkbox" value="Carpachos"/> <span>Carpachos</span></label>
+<label class="biz-check"><input id="bizProdNachos" type="checkbox" value="Nachos"/> <span>Nachos</span></label>
 </div>
 <div aria-live="polite" class="field-error" id="bizErrProducts"></div>
 </div>
@@ -2977,17 +3373,22 @@ html[data-theme="dark"] h2.menu-section-title,
     const pyFab = document.getElementById("pyFab");
     const waFab = document.getElementById("waFab");
     const cotizaFab = document.getElementById("cotizaFab");
+    const miniCartFab = document.getElementById("miniCartFab");
 
     if(isBusinessView){
       if(ueFab) ueFab.style.display = "none";
       if(pyFab) pyFab.style.display = "none";
       if(waFab) waFab.style.display = "none";
       if(cotizaFab) cotizaFab.style.display = "";
+      // En Empresas: ocultar por completo el mini-carrito flotante (aunque haya items cargados)
+      if(miniCartFab) miniCartFab.style.display = "none";
     }else{
       if(ueFab) ueFab.style.display = "";
       if(pyFab) pyFab.style.display = "";
       if(waFab) waFab.style.display = "";
       if(cotizaFab) cotizaFab.style.display = "none";
+      // En Público: devolvemos control a su lógica/clases (hidden, items, etc.)
+      if(miniCartFab) miniCartFab.style.display = "";
     }
   }
 
@@ -3235,10 +3636,15 @@ function setView(view){
     const miniCartFab = document.getElementById("miniCartFab");
     const miniCartCountEl = document.getElementById("miniCartCount");
 
-    const isBusinessPath = (()=>{
+    // Nota: desde v59+ la vista Empresas vive en el MISMO index via ?view=business.
+    // Por eso no podemos depender solo de location.pathname.
+    const isBusinessPath = ()=>{
+      try{
+        if(typeof detectViewFromPath === 'function') return detectViewFromPath() === 'business';
+      }catch(e){}
       const p = (location && location.pathname ? location.pathname.toLowerCase() : '');
       return p.includes('/business') || p.includes('/bussines');
-    })();
+    };
 
     if(miniCartFab){
       miniCartFab.addEventListener('click', (e)=>{
@@ -3827,14 +4233,160 @@ if(document.readyState === 'loading'){
       closeBizModal();
     });
 
-    if(bizSendEmail) bizSendEmail.addEventListener('click', ()=>{
-      const d = collectBizData();
-      if(!validateBiz(d)) return;
-      showToast('Correo dummy enviado');
-      closeBizModal();
+    if(bizSendEmail) bizSendEmail.addEventListener('click', async ()=>{
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykpoqra";
+
+  const d = collectBizData();
+  if(!validateBiz(d)) return;
+
+  // Loader GLOBAL
+  showAppLoading("Enviando cotización por correo…", "Enviando cotización…");
+
+  // Mensaje con el formato ya aprobado (mismo modelo que WhatsApp)
+  const msg = buildBizMessage(d);
+
+  // Bloquear interacciones dentro del modal mientras se envía (sin overlay visible)
+  let blocker;
+  try{
+    const modal = document.getElementById("bizModal");
+    blocker = document.getElementById("bizSendBlocker");
+    if(!blocker && modal){
+      blocker = document.createElement("div");
+      blocker.id = "bizSendBlocker";
+      blocker.className = "biz-send-blocker";
+      modal.appendChild(blocker);
+    }
+    if(blocker) blocker.classList.add("show");
+  }catch(e){}
+
+  // UI: deshabilitar botones + texto "enviando"
+  const prevHtml = bizSendEmail.innerHTML;
+  const prevCancelDisabled = bizModalCancel ? bizModalCancel.disabled : null;
+  const prevWaDisabled = bizSendWa ? bizSendWa.disabled : null;
+  try{
+    bizSendEmail.disabled = true;
+    bizSendEmail.classList.add("is-loading");
+    bizSendEmail.innerHTML = '<span>Enviando correo…</span>';
+  }catch(e){}
+  try{ if(bizModalCancel) bizModalCancel.disabled = true; }catch(e){}
+  try{ if(bizSendWa) bizSendWa.disabled = true; }catch(e){}
+
+  try{
+    const fd = new FormData();
+
+    // ✅ SOLO lo básico (para que Formspree no cree columnas extra)
+    fd.append("name", d.company || "Empresa (sin nombre)");
+    fd.append("email", d.email);
+    fd.append("message", msg);
+
+    // Asunto dinámico: Cotización — {empresa}
+    const company = (d.company || "Empresa").trim();
+    fd.append("_subject", `Cotización — ${company}`);
+
+    // Pista mínima del origen
+    fd.append("source", "Empresas / Modal Cotización");
+
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      body: fd,
+      headers: { "Accept": "application/json" }
     });
 
-    // Si el usuario presiona Enter en un campo, no enviar por default
+    if(res.ok){
+      const em = (d.email || "").trim();
+      showToast(`Hemos recibido tu email desde ${em || "tu correo"}. Te responderemos en breve.`);
+      // Limpia campos tras envío exitoso
+      try{
+        if(bizForm) bizForm.reset();
+        document
+          .querySelectorAll('#bizModal .biz-products input[type="checkbox"]')
+          .forEach(cb => cb.checked = false);
+      }catch(e){}
+      closeBizModal();
+    }else{
+      showToast("No se pudo enviar. Intenta de nuevo.");
+    }
+  }catch(err){
+    showToast("Error de red. Revisa tu conexión.");
+  }finally{
+    // Restaurar UI (si el modal sigue abierto)
+    try{
+      bizSendEmail.disabled = false;
+      bizSendEmail.classList.remove("is-loading");
+      bizSendEmail.innerHTML = prevHtml;
+    }catch(e){}
+    try{
+      if(bizModalCancel && prevCancelDisabled !== null) bizModalCancel.disabled = prevCancelDisabled;
+    }catch(e){}
+    try{
+      if(bizSendWa && prevWaDisabled !== null) bizSendWa.disabled = prevWaDisabled;
+    }catch(e){}
+    try{
+      if(blocker) blocker.classList.remove("show");
+    }catch(e){}
+    // Apagar loader global
+    hideAppLoading();
+  }
+});
+
+    // ===========================
+    // Loader GLOBAL (reutilizable)
+    // ===========================
+    
+function showAppLoading(text, title){
+  const el = document.getElementById('appLoading');
+  if(!el) return;
+
+  // Guardar timestamp para asegurar que el sobre alcance a "formarse"
+  window.__appLoadingShownAt = Date.now();
+  window.__appLoadingToken = (window.__appLoadingToken || 0) + 1;
+  const myToken = window.__appLoadingToken;
+
+  const t = document.getElementById('appLoadingText');
+  const h = document.getElementById('appLoadingTitle');
+  if(h) h.textContent = (title || "Enviando…");
+  if(t) t.textContent = (text || "Estamos procesando tu solicitud.");
+
+  document.body.classList.add('is-app-loading');
+  el.classList.remove('is-hidden');
+  el.classList.remove('is-finishing');
+  el.setAttribute('aria-hidden','false');
+
+  // Si alguien llamó hide antes de tiempo, cancelamos ese "fin" con token
+  window.__appLoadingActiveToken = myToken;
+}
+
+function hideAppLoading(){
+  const el = document.getElementById('appLoading');
+  if(!el) return;
+
+  const MIN_MS = 1250;   // coincide con el "enter" rápido
+  const FINISH_MS = 220; // pausa breve mostrando el sobre completo
+
+  const shownAt = window.__appLoadingShownAt || Date.now();
+  const elapsed = Date.now() - shownAt;
+  const wait = Math.max(0, MIN_MS - elapsed);
+
+  const myToken = window.__appLoadingToken || 0;
+
+  window.setTimeout(()=>{
+    // Si se volvió a mostrar el loader, no lo ocultes (evita parpadeos)
+    if((window.__appLoadingToken || 0) !== myToken) return;
+
+    // Congelar animación en estado final un momento
+    el.classList.add('is-finishing');
+
+    window.setTimeout(()=>{
+      if((window.__appLoadingToken || 0) !== myToken) return;
+
+      el.classList.add('is-hidden');
+      el.classList.remove('is-finishing');
+      el.setAttribute('aria-hidden','true');
+      document.body.classList.remove('is-app-loading');
+    }, FINISH_MS);
+  }, wait);
+}
+// Si el usuario presiona Enter en un campo, no enviar por default
     if(bizForm) bizForm.addEventListener('submit', (e)=>{ e.preventDefault(); });
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -3899,7 +4451,7 @@ if(document.readyState === 'loading'){
 
       // Mini carrito flotante
       if(miniCartCountEl) miniCartCountEl.textContent = String(total);
-      if(miniCartFab) miniCartFab.classList.toggle('hidden', isBusinessPath || total<=0);
+      if(miniCartFab) miniCartFab.classList.toggle('hidden', isBusinessPath() || total<=0);
 
       const msg = buildMessage();
       waBtn.href = msg ? ("https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg)) : ("https://wa.me/" + PHONE);
@@ -4053,5 +4605,389 @@ if(document.readyState === 'loading'){
   });
 })();
 </script>
+
+<script>
+/* ===== Google Reviews (Places JS) — v62 =====
+   - Renderiza reseñas reales en carrusel (3 visibles desktop, swipe mobile)
+   - IMPORTANTE: reemplaza TU_API_KEY en el script de Google Maps más abajo
+*/
+(function(){
+  const MR_PIZZAS_PLACE_ID = "0x8589a39724e7027b:0x807d6f766016b606"; // Mr Pizzas GT (Place ID)
+
+  function escapeHtml(str){
+    return String(str || "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function setText(id, value){
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function show(id){
+    const el = document.getElementById(id);
+    if (el) el.style.display = "block";
+  }
+
+  function hide(id){
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  }
+
+  function renderReviews(place){
+    hide("googleReviewsLoading");
+    hide("googleReviewsError");
+
+    const wrap = document.getElementById("googleReviewsCarouselWrap");
+    const track = document.getElementById("googleReviewsTrack");
+    if (!wrap || !track) return;
+
+    const reviews = (place?.reviews || []).slice(0, 10);
+
+    if (!reviews.length){
+      setText("googleReviewsError", "Aun no hay resenas para mostrar.");
+      show("googleReviewsError");
+      return;
+    }
+
+    // rating + total (si existen en tu layout)
+    if (place?.rating) setText("googleRatingValue", Number(place.rating).toFixed(1));
+    if (place?.user_ratings_total != null) setText("googleRatingCount", `(${place.user_ratings_total})`);
+
+    const googleLogo = "Logotipos/Google.png";
+
+    track.innerHTML = reviews.map(r => {
+      const name = escapeHtml(r.author_name || "Anonimo");
+      const photo = r.profile_photo_url || "";
+      const time = escapeHtml(r.relative_time_description || "");
+      const rating = Math.max(0, Math.min(5, r.rating || 0));
+      const stars = "⭐".repeat(rating);
+      const text = escapeHtml((r.text || "").trim() || "Resena sin texto.");
+
+      return `
+        <article class="googleReviewCard">
+          <div class="googleReviewHeader">
+            <div class="googleReviewUser">
+              ${photo ? `<img class="googleReviewAvatar" src="${photo}" alt="${name}">`
+                      : `<div class="googleReviewAvatar" aria-hidden="true"></div>`}
+              <div style="min-width:0">
+                <div class="googleReviewName" title="${name}">${name}</div>
+                <div class="googleReviewMeta">${time}</div>
+              </div>
+            </div>
+
+            <div class="googleReviewSource" title="Resena verificada de Google">
+              <img class="googleReviewGoogleLogo" src="${googleLogo}" alt="Google">
+              <div class="googleReviewStars" aria-label="Calificacion ${rating} de 5">${stars}</div>
+            </div>
+          </div>
+
+          <p class="googleReviewText">${text}</p>
+        </article>
+      `;
+    }).join("");
+
+    wrap.style.display = "flex";
+
+    // nav
+    const prev = document.getElementById("revPrev");
+    const next = document.getElementById("revNext");
+
+    function step(){
+      const card = track.querySelector(".googleReviewCard");
+      if (!card) return 320;
+      const gap = 18;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function updateNav(){
+      if (!prev || !next) return;
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= maxScroll;
+    }
+
+    function scrollDir(dir){
+      track.scrollBy({ left: step() * dir, behavior: "smooth" });
+    }
+
+    // Navegacion por botones (si existen)
+    if (prev && next){
+      prev.onclick = () => scrollDir(-1);
+      next.onclick = () => scrollDir(1);
+    }
+
+    // Drag / swipe (mouse + touch) para que SIEMPRE se pueda mover
+    let isDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const onPointerDown = (e) => {
+      isDown = true;
+      startX = e.clientX;
+      startScrollLeft = track.scrollLeft;
+      try { track.setPointerCapture(e.pointerId); } catch(_){}
+    };
+    const onPointerMove = (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      track.scrollLeft = startScrollLeft - dx;
+    };
+    const onPointerUp = () => { isDown = false; };
+
+    track.addEventListener("pointerdown", onPointerDown);
+    track.addEventListener("pointermove", onPointerMove);
+    track.addEventListener("pointerup", onPointerUp);
+    track.addEventListener("pointercancel", onPointerUp);
+    track.addEventListener("pointerleave", onPointerUp);
+
+    // Rueda del mouse -> scroll horizontal (comodisimo en desktop)
+    track.addEventListener("wheel", (e) => {
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      if (absY > absX){
+        track.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    track.addEventListener("scroll", updateNav, { passive: true });
+    window.addEventListener("resize", updateNav);
+    setTimeout(updateNav, 200);
+  }
+
+  // Google Maps callback (debe ser global)
+  window.initGoogleReviews = function(){
+    // Config (no backend): resolve Place ID at runtime to avoid "Place ID no longer valid"
+    const GOOGLE_LOGO = "Logotipos/Google.png";
+    const PLACE_QUERY = "Mr Pizzas GT, Guatemala";
+
+    const $ = (id) => document.getElementById(id);
+
+    const hintEl = $("googleReviewsHint");
+    const ratingRowEl = $("googleRatingRow");
+    const ratingTextEl = $("googleRatingText");
+    const linkEl = $("googleReviewsLink");
+    const btnRowEl = $("googleReviewsBtnRow");
+    const wrapEl = $("googleReviewsCarouselWrap");
+    const trackEl = $("googleReviewsTrack");
+    const fallbackEl = $("reviewsFallback");
+    const prevBtn = $("revPrev");
+    const nextBtn = $("revNext");
+
+    function setState(state){
+      if (!hintEl || !ratingRowEl || !btnRowEl || !wrapEl || !fallbackEl) return;
+      if (state === "loading"){
+        hintEl.style.display = "";
+        ratingRowEl.style.display = "none";
+        btnRowEl.style.display = "none";
+        wrapEl.style.display = "none";
+        fallbackEl.style.display = "none";
+      } else if (state === "ok"){
+        hintEl.style.display = "none";
+        ratingRowEl.style.display = "";
+        btnRowEl.style.display = "flex";
+        wrapEl.style.display = "";
+        fallbackEl.style.display = "none";
+      } else {
+        hintEl.style.display = "none";
+        ratingRowEl.style.display = "none";
+        btnRowEl.style.display = "none";
+        wrapEl.style.display = "none";
+        fallbackEl.style.display = "";
+      }
+    }
+
+    function starsText(r){
+      const full = Math.round(r);
+      const empty = 5 - full;
+      return "⭐".repeat(full);
+    }
+
+    function escapeHtml(str){
+      return String(str ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function render(place){
+      const rating = place.rating ?? null;
+      const total = place.user_ratings_total ?? null;
+
+      // Header / rating row
+      if (ratingTextEl){
+        const ratingStr = rating ? `${rating.toFixed(1)} / 5` : "—";
+        const totalStr = total != null ? `(${total} reseñas)` : "";
+        ratingTextEl.innerHTML = `
+          <span class="gr-stars" aria-label="${ratingStr}">${rating ? starsText(rating) : "—"}</span>
+          <span class="gr-score">${ratingStr}</span>
+          <span class="gr-total">${totalStr}</span>
+          <span class="gr-src" style="display:inline-flex;align-items:center;gap:6px;margin-left:6px;">
+            <img src="${GOOGLE_LOGO}" alt="Google" loading="lazy" style="height:18px;width:auto;vertical-align:middle;" />
+          </span>
+        `;
+      }
+
+      if (linkEl && place.url){
+        linkEl.href = place.url;
+      }
+
+      const reviewsRaw = Array.isArray(place.reviews) ? place.reviews : [];
+      // Google suele ordenar por "relevancia"; para UX, mostramos las más recientes primero.
+      // (No cambia la integración: solo ordenamos el array ya recibido.)
+      const reviews = reviewsRaw
+        .slice()
+        .sort((a,b) => (b.time || 0) - (a.time || 0))
+        .slice(0, 7);
+      if (!trackEl) return;
+
+      // Build cards (Google suele devolver un subconjunto; renderizamos todas las que vengan)
+      const cards = reviews.map((r) => {
+        const name = escapeHtml(r.author_name || "Usuario");
+        const photo = r.profile_photo_url ? escapeHtml(r.profile_photo_url) : "";
+        const txt = escapeHtml(r.text || "").replace(/\n/g,"<br>");
+        const rt = typeof r.rating === "number" ? r.rating : null;
+        const time = escapeHtml(r.relative_time_description || "");
+        return `
+          <article class="googleReviewCard" role="group" aria-label="Reseña de ${name}">
+            <header class="googleReviewHeader">
+              <div class="googleReviewAvatar">
+                ${photo ? `<img src="${photo}" alt="${name}" loading="lazy" referrerpolicy="no-referrer" />` : ``}
+              </div>
+              <div class="googleReviewMeta">
+                <div class="googleReviewName">${name}</div>
+                <div class="googleReviewSub">
+                  <span class="googleReviewStars">${rt ? starsText(rt) : ""}</span>
+                  <span class="googleReviewTime">${time}</span>
+                </div>
+              </div>
+            </header>
+            <p class="googleReviewText">${txt || "—"}</p>
+          </article>
+        `;
+      }).join("");
+
+      trackEl.innerHTML = cards || `<div class="googleReviewEmpty">Aún no hay reseñas para mostrar.</div>`;
+      // Nav (botones SIEMPRE funcionales) — el scroll vive en trackEl, no en el wrapper
+      function updateNav(){
+        if (!trackEl || !prevBtn || !nextBtn) return;
+        const max = Math.max(0, trackEl.scrollWidth - trackEl.clientWidth - 2);
+        prevBtn.disabled = trackEl.scrollLeft <= 2;
+        nextBtn.disabled = trackEl.scrollLeft >= max;
+      }
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scrollStep = () => Math.max(260, Math.round(trackEl.clientWidth * 0.92));
+
+      if (trackEl && prevBtn && nextBtn){
+        prevBtn.onclick = () => trackEl.scrollBy({ left: -scrollStep(), behavior: reduceMotion ? "auto" : "smooth" });
+        nextBtn.onclick = () => trackEl.scrollBy({ left:  scrollStep(), behavior: reduceMotion ? "auto" : "smooth" });
+
+        trackEl.addEventListener("scroll", () => requestAnimationFrame(updateNav), { passive:true });
+        window.addEventListener("resize", () => requestAnimationFrame(updateNav));
+        setTimeout(updateNav, 120);
+
+        // Teclado (cuando el carrusel tiene foco): ← / →
+        trackEl.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowLeft"){ e.preventDefault(); prevBtn.click(); }
+          if (e.key === "ArrowRight"){ e.preventDefault(); nextBtn.click(); }
+        });
+      }
+
+    }
+
+    function getService(){
+      return new google.maps.places.PlacesService(document.createElement("div"));
+    }
+
+    function resolvePlaceId(cb){
+      // If MR_PIZZAS_PLACE_ID is already a modern Place ID (ChIJ...), use it.
+      if (typeof MR_PIZZAS_PLACE_ID === "string" && MR_PIZZAS_PLACE_ID.startsWith("ChI")){
+        cb(MR_PIZZAS_PLACE_ID);
+        return;
+      }
+
+      // Otherwise, search by query (fresh place_id each time).
+      const svc = getService();
+      svc.findPlaceFromQuery(
+        { query: PLACE_QUERY, fields: ["place_id","name"] },
+        (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0] && results[0].place_id){
+            cb(results[0].place_id);
+          } else {
+            cb(null);
+          }
+        }
+      );
+    }
+
+    function fetchDetails(placeId, cb){
+      const svc = getService();
+      svc.getDetails(
+        { placeId, fields: ["name","rating","user_ratings_total","reviews","url"] },
+        (place, status) => cb(place, status)
+      );
+    }
+
+    // Run
+    setState("loading");
+
+    resolvePlaceId((placeId) => {
+      if (!placeId){
+        setState("error");
+        return;
+      }
+
+      fetchDetails(placeId, (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && place){
+          setState("ok");
+          render(place);
+          return;
+        }
+
+        // If cached Place ID got invalidated, try again (fresh search).
+        if (String(status).toUpperCase().includes("INVALID_REQUEST")){
+          resolvePlaceId((placeId2) => {
+            if (!placeId2){
+              setState("error");
+              return;
+            }
+            fetchDetails(placeId2, (place2, status2) => {
+              if (status2 === google.maps.places.PlacesServiceStatus.OK && place2){
+                setState("ok");
+                render(place2);
+              } else {
+                setState("error");
+              }
+            });
+          });
+          return;
+        }
+
+        setState("error");
+      });
+    });
+  };
+})();
+</script>
+
+
+<!-- Google Maps JS + Places Library -->
+<!-- IMPORTANTE: reemplazá REEMPLAZA_CON_TU_API_KEY por tu key -->
+
+<!-- (v62) Script duplicado de pruebas removido -->
+
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ62QQZoJNn0Lx3XngxG2uedtBZ2QIwew&libraries=places&v=weekly&callback=initGoogleReviews">
+</script>
+
 </body>
 </html>
