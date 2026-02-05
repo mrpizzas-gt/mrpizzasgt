@@ -1432,9 +1432,9 @@
     align-items: flex-start;
   }
   .biz-ico{
-    width: 30px; /* Reducido de 34px a 30px */
-    height: 30px; /* Reducido de 34px a 30px */
-    border-radius: 10px; /* Ajustado proporcionalmente */
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
     border: 1px solid var(--line);
     background: var(--surface2);
     display:flex;
@@ -1442,7 +1442,7 @@
     justify-content:center;
     flex: 0 0 auto;
   }
-  .biz-ico img{ width: 16px; height: 16px; object-fit: contain; } /* Reducido de 18px a 16px */
+  .biz-ico img{ width: 18px; height: 18px; object-fit: contain; }
   .biz-field .field{ flex: 1 1 auto; }
   .biz-actions{
     display:flex;
@@ -1579,14 +1579,14 @@
     gap: 8px; /* antes 12px */
   }
   #bizModal .biz-modal .field label{
-    margin-bottom: 2px; /* Reducido de 4px a 2px */
+    margin-bottom: 4px; /* antes 6px */
     font-size: 12px;
   }
   #bizModal .biz-modal .field input,
   #bizModal .biz-modal .field textarea,
   #bizModal .biz-modal .field select{
     border-width: 1px;     /* antes 2px */
-    padding: 6px 10px;     /* Reducido de 8px a 6px vertical */
+    padding: 8px 10px;     /* antes 10px 12px */
     font-size: 16px;       /* mantener anti-zoom iOS */
     line-height: 1.2;
   }
@@ -1643,7 +1643,7 @@
   #bizModal .biz-products{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px 10px; /* Reducido gap vertical de 2px a 1px */
+    gap: 6px 10px;
   }
   #bizModal .biz-check{
     display:flex;
@@ -1670,10 +1670,10 @@
   /* v54_13 — Productos alineado con los demas campos (icono + label) */
   #bizModal .biz-field-products{ grid-column: 2; }
   #bizModal .biz-field-products .biz-products{
-    margin-top: 0px; /* Reducido de 2px a 0px - ahorro 2px */
+    margin-top: 2px; /* Reducido de 6px a 2px para dar espacio a 7 productos */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px 10px; /* Reducido gap vertical de 2px a 1px */
+    gap: 6px 10px;
   }
   #bizModal .biz-field-products .biz-check{ font-size: 12px; }
 
@@ -1688,12 +1688,12 @@
   flex:1 1 0;
   display:flex;
   flex-direction:column;
-  gap:6px; /* Reducido de 10px a 6px para recuperar espacio */
+  gap:12px;
   min-width:0;
 }
 @media (max-width: 860px){
   #bizModal .biz-modal-grid{ display:block; }
-  #bizModal .biz-col{ gap:6px; }
+  #bizModal .biz-col{ gap:10px; }
 }
 
 /* v54_17: Compactar altura del modal (reducir espacio vacío antes de botones) */
@@ -1711,61 +1711,61 @@
     opacity: .85;
   }
 
- /* Ajuste fino: subir FECHA (label + input) 34px */
+ /* Ajuste fino: subir FECHA (label + input) 14px */
 #bizModal .biz-field .field label[for="bizDate"]{
   position: relative;
-  top: -34px; /* Subido de -24px a -34px (+10px) */
+  top: -4px;
 }
 #bizModal #bizDate{
   position: relative;
-  top: -34px;
+  top: -4px;
 }
 #bizModal #bizErrDate{
   position: relative;
-  top: -34px;
+  top: -4px;
 } 
 
- /* Ajuste fino: subir PRODUCTO (label + input) 24px */ 
+ /* Ajuste fino: subir PDORDUCTO (label + input) 14px XXXXX*/ 
 #bizModal .biz-field-products .field{
   position: relative;
-  top: -24px; /* Subido de -16px a -24px (+8px) */
+  top: -8px;
 }
 #bizModal #bizErrProducts{
   position: relative;
-  top: -24px;
+  top: -8px;
 }
 
- /* Ajuste fino: subir UBICACION aprovechando espacio de Productos */
+ /* Ajuste fino: subir UBICACION (label + input) 14px */
 #bizModal .biz-field .field label[for="bizLocation"]{
   position: relative;
-  top: -57px; /* Ajustado de -46px a -57px (+11px) */
+  top: -30px;
 }
 #bizModal #bizLocation{
   position: relative;
-  top: -57px;
+  top: -30px;
 }
 #bizModal #bizErrLocation{
   position: relative;
-  top: -57px;
+  top: -30px;
 }
 
-/* Ajuste fino: subir Correo aprovechando todo el espacio ganado */
+/* Ajuste fino: subir Correo (label + input) 14px */
 #bizModal .biz-field .field label[for="bizEmail"]{
   position: relative;
-  top: -67px; /* Ajustado de -56px a -67px (+11px) */
+  top: -40px;
 }
 #bizModal #bizEmail{
   position: relative;
-  top: -67px;
+  top: -40px;
 }
 #bizModal #bizErrEmail{
   position: relative;
-  top: -67px;
+  top: -40px;
 }
 
 #bizModal .biz-field:has(#bizEmail) .biz-ico{
   position: relative;
-  top: -67px; /* Ajustado de -56px a -67px (+11px) */
+  top: -40px;
 }
 
 
@@ -3194,13 +3194,6 @@ html[data-theme="dark"] h2.menu-section-title,
 <input id="bizPhone" inputmode="tel" name="phone" placeholder="Ej: +502 5555-5555" required="" type="tel"/>
 <div aria-live="polite" class="field-error" id="bizErrPhone"></div>
 </div>
-</div><div class="biz-field">
-<div class="biz-ico"><img alt="" decoding="async" id="icoMail" loading="lazy" src="Logotipos/correo-electronico.png"/></div>
-<div class="field">
-<label for="bizEmail">Correo</label>
-<input id="bizEmail" name="email" placeholder="Ej: nombre@empresa.com" required="" type="email"/>
-<div aria-live="polite" class="field-error" id="bizErrEmail"></div>
-</div>
 </div></div><div class="biz-col biz-col-right"><div class="biz-field">
 <div class="biz-ico"><img alt="" decoding="async" id="icoCompany" loading="lazy" src="Logotipos/corporacion.png"/></div>
 <div class="field">
@@ -3227,6 +3220,7 @@ html[data-theme="dark"] h2.menu-section-title,
 <label class="biz-check"><input id="bizProdToldos" type="checkbox" value="Toldos"/> <span>Toldos</span></label>
 <label class="biz-check"><input id="bizProdCarpachos" type="checkbox" value="Carpachos"/> <span>Carpachos</span></label>
 <label class="biz-check"><input id="bizProdNachos" type="checkbox" value="Nachos"/> <span>Nachos</span></label>
+<label class="biz-check"><input id="bizProdAlitas" type="checkbox" value="Alitas"/> <span>Alitas</span></label>
 </div>
 <div aria-live="polite" class="field-error" id="bizErrProducts"></div>
 </div>
@@ -3236,6 +3230,13 @@ html[data-theme="dark"] h2.menu-section-title,
 <label for="bizLocation">Ubicación</label>
 <textarea id="bizLocation" name="location" placeholder="Ej: Zona 10, edificio ___, salón ___, referencia: ____" required="" rows="2"></textarea>
 <div aria-live="polite" class="field-error" id="bizErrLocation"></div>
+</div>
+</div><div class="biz-field">
+<div class="biz-ico"><img alt="" decoding="async" id="icoMail" loading="lazy" src="Logotipos/correo-electronico.png"/></div>
+<div class="field">
+<label for="bizEmail">Correo</label>
+<input id="bizEmail" name="email" placeholder="Ej: nombre@empresa.com" required="" type="email"/>
+<div aria-live="polite" class="field-error" id="bizErrEmail"></div>
 </div>
 </div></div></div>
 <div class="biz-actions">
