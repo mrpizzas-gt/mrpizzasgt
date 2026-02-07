@@ -108,8 +108,6 @@
     background: var(--header-bg);
     border-bottom: 1px solid var(--line);
     backdrop-filter: saturate(180%) blur(10px);
-    isolation: isolate; /* v63: evita glitches de stacking (Android) */
-    transform: translateZ(0); /* v63: fuerza capa propia para sticky */
   }
   .row{ display:flex; align-items:center; gap:12px; }
   .spacer{ flex:1; }
@@ -2091,12 +2089,6 @@ html[data-theme="dark"] h2.menu-section-title,
   overscroll-behavior-x: contain;
 }
 .googleReviewsTrack::-webkit-scrollbar{ display:none; }
-
-/* v63: Android — evitar que el carrusel de reseñas pinte por encima del header sticky */
-#confianza{ position: relative; z-index: 0; }
-.googleReviewsCarouselWrap,
-.googleReviewsTrack,
-.googleReviewCard{ position: relative; z-index: 0; }
 
 .googleReviewCard{
   flex: 0 0 clamp(220px, 60vw, 280px);
